@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9736282e-4b54-47e2-8eec-a4c83bc125b1" name="Default Changelist" comment="" />
+    <list default="true" id="9736282e-4b54-47e2-8eec-a4c83bc125b1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/Exceptions/WrongPassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/LogIn.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Services/SystemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Users/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/controllers/LogInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -41,6 +58,8 @@
       <option name="presentableId" value="Default" />
       <updated>1587913791614</updated>
       <workItem from="1587913799546" duration="487000" />
+      <workItem from="1588433992684" duration="1762000" />
+      <workItem from="1588435826031" duration="527000" />
     </task>
     <servers />
   </component>
@@ -48,9 +67,17 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1587914966098">
+    <state x="560" y="343" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1588435743486">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1587914966098" />
+    <state x="560" y="343" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1440.797@0.23.1440.797" timestamp="1588435743486" />
+    <state x="264" y="98" key="Maven.ArtifactSearchDialog" timestamp="1588435222845">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="264" y="98" key="Maven.ArtifactSearchDialog/0.23.1440.797@0.23.1440.797" timestamp="1588435222845" />
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1588435824264">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1588435824264" />
   </component>
 </project>
