@@ -2,16 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9736282e-4b54-47e2-8eec-a4c83bc125b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controllers/LogInController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/users.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/LogIn.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/SystemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/SystemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/controllers/LogInController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/LogInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/LogInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Exceptions/WrongPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Exceptions/WrongPassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LogIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Services/SystemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/SystemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/1stJavaFxClass.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/LogInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/LogInController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/LogIn.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/SystemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/UserService$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Users/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/resources/users.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +55,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -86,7 +105,14 @@
       <workItem from="1588576300734" duration="1605000" />
       <workItem from="1588578117177" duration="1679000" />
       <workItem from="1588579943696" duration="1280000" />
-      <workItem from="1588582561775" duration="443000" />
+      <workItem from="1588582561775" duration="732000" />
+      <workItem from="1588589095080" duration="969000" />
+      <workItem from="1588592504453" duration="1650000" />
+      <workItem from="1588595453287" duration="671000" />
+      <workItem from="1588596399450" duration="533000" />
+      <workItem from="1588598035244" duration="1355000" />
+      <workItem from="1588599414786" duration="74000" />
+      <workItem from="1588601311290" duration="1228000" />
     </task>
     <servers />
   </component>
@@ -94,6 +120,11 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="391" y="73" key="#Project_Structure" timestamp="1588592977900">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="391" y="73" key="#Project_Structure/0.0.1440.900@0.0.1440.900" timestamp="1588592977900" />
+    <state x="391" y="88" key="#Project_Structure/0.23.1440.797@0.23.1440.797" timestamp="1588592802342" />
     <state x="188" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588581836425">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
@@ -102,13 +133,45 @@
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="560" y="343" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1440.797@0.23.1440.797" timestamp="1588435743486" />
+    <state x="375" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1588593194863">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="375" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1440.900@0.0.1440.900" timestamp="1588593194863" />
+    <state x="492" y="315" width="455" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588593187870">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="492" y="315" width="455" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1440.900@0.0.1440.900" timestamp="1588593187870" />
+    <state x="492" y="340" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1588593196275">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="492" y="340" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1588593196275" />
+    <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1588602075314">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="204" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1588593299915" />
+    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1588602075314" />
+    <state width="1398" height="207" key="GridCell.Tab.0.center" timestamp="1588602075313">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="204" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1588593299914" />
+    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1588602075313" />
+    <state width="1398" height="207" key="GridCell.Tab.0.left" timestamp="1588602075312">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="204" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1588593299913" />
+    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1588602075312" />
+    <state width="1398" height="207" key="GridCell.Tab.0.right" timestamp="1588602075314">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="204" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1588593299915" />
+    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1588602075314" />
     <state x="264" y="98" key="Maven.ArtifactSearchDialog" timestamp="1588579487237">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="264" y="98" key="Maven.ArtifactSearchDialog/0.23.1440.797@0.23.1440.797" timestamp="1588579487237" />
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1588582561714">
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1588601312174">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1588582561714" />
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1588601312174" />
   </component>
 </project>

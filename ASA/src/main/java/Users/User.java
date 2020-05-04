@@ -1,4 +1,4 @@
-package main.Users;
+package Users;
 
 public class User {
 

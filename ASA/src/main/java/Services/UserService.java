@@ -1,4 +1,4 @@
-package main.Services;
+package Services;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,12 +13,13 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import main.Users.User;
+import Users.User;
+import Services.SystemService;
 
 public class UserService {
 
     private static List<User> users;
-    private static final Path USERS_PATH = main.Services.SystemService.getPathToFile("config", "users.json");
+    private static final Path USERS_PATH = SystemService.getPathToFile("config", "users.json");
 
     public static void loadUsersFromFile() throws IOException, Exceptions.WrongPassword {
 

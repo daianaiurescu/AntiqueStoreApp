@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import Exceptions.WrongPassword;
 
+import Users.User;
+import Services.*;
+
 public class LogInController {
 
     @FXML
@@ -31,7 +34,7 @@ public class LogInController {
         String password = passwordField.getText();
 
         try {
-            main.Services.UserService.loadUsersFromFile();
+            UserService.loadUsersFromFile();
 
             if (mail == null || mail.isEmpty()) {
                 loginMessage.setText("Please type in a username!");
@@ -43,7 +46,7 @@ public class LogInController {
                 return;
             }
 
-            if (roleField.equals("Client")) {
+            if (roleField.getValue().equals("Client")) {
                 try {
                     Stage stage = (Stage) loginMessage.getScene().getWindow();
                     Parent viewBooks = FXMLLoader.load(getClass().getResource("../fxml/viewBooks.fxml"));
@@ -57,7 +60,7 @@ public class LogInController {
             }
 
 
-            if (roleField.equals("Administrator")) {
+            if (roleField.getValue().equals("Administrator")) {
                 try {
                     Stage stage = (Stage) loginMessage.getScene().getWindow();
                     Parent AdminView = FXMLLoader.load(getClass().getResource("../fxml/AdminView.fxml"));

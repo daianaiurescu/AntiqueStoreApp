@@ -1,11 +1,11 @@
-package main;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.Services.UserService;
+import Services.UserService;
+import Users.User;
+
 
 public class Main extends Application {
 
@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        main.Services.UserService.loadUsersFromFile();
+        Services.UserService.loadUsersFromFile();
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
         primaryStage.setTitle("Log In");
