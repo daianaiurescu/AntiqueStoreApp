@@ -3,23 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9736282e-4b54-47e2-8eec-a4c83bc125b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/LogInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/LogInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Exceptions/WrongPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Exceptions/WrongPassword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LogIn.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/SystemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/SystemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/1stJavaFxClass.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/LogInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/LogInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/LogIn.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/SystemService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/UserService$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Services/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Users/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/resources/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LogIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/antique-store-application.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/antique-store-application.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +40,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -112,7 +97,11 @@
       <workItem from="1588596399450" duration="533000" />
       <workItem from="1588598035244" duration="1355000" />
       <workItem from="1588599414786" duration="74000" />
-      <workItem from="1588601311290" duration="1228000" />
+      <workItem from="1588601311290" duration="1386000" />
+      <workItem from="1588605500342" duration="293000" />
+      <workItem from="1588659425253" duration="284000" />
+      <workItem from="1588774866340" duration="99000" />
+      <workItem from="1588835526914" duration="322000" />
     </task>
     <servers />
   </component>
@@ -145,33 +134,45 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="492" y="340" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1588593196275" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1588602075314">
+    <state x="432" y="283" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588659607568">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="432" y="283" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.797@0.23.1440.797" timestamp="1588659607568" />
+    <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1588774964931">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="204" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1588593299915" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1588602075314" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center" timestamp="1588602075313">
+    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1588774964931" />
+    <state width="1398" height="207" key="GridCell.Tab.0.center" timestamp="1588774964930">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="204" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1588593299914" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1588602075313" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left" timestamp="1588602075312">
+    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1588774964930" />
+    <state width="1398" height="207" key="GridCell.Tab.0.left" timestamp="1588774964930">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="204" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1588593299913" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1588602075312" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right" timestamp="1588602075314">
+    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1588774964930" />
+    <state width="1398" height="207" key="GridCell.Tab.0.right" timestamp="1588774964930">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="204" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1588593299915" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1588602075314" />
+    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1588774964930" />
     <state x="264" y="98" key="Maven.ArtifactSearchDialog" timestamp="1588579487237">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="264" y="98" key="Maven.ArtifactSearchDialog/0.23.1440.797@0.23.1440.797" timestamp="1588579487237" />
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1588601312174">
+    <state x="111" y="23" key="SettingsEditor" timestamp="1588659578125">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1588601312174" />
+    <state x="111" y="23" key="SettingsEditor/0.23.1440.797@0.23.1440.797" timestamp="1588659578125" />
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1588835524283">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="376" y="256" key="com.intellij.ide.util.TipDialog/0.23.1440.797@0.23.1440.797" timestamp="1588835524283" />
+    <state x="800" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588605519828">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="800" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.797@0.23.1440.797" timestamp="1588605519828" />
   </component>
 </project>
