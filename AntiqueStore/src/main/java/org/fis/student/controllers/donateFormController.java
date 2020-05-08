@@ -59,14 +59,14 @@ public class donateFormController{
 
     }
 
-    String userFirstName = userFirstNameField.getText();
+    /**String userFirstName = userFirstNameField.getText();
 
     @FXML private Text actiontarget;
 
-    protected void handleSubmitButtonAction(ActionEvent event) {
+    public void handleSubmitButtonAction(ActionEvent event) {
         actiontarget.setText("Donation submitted. ");
         ////////////to be linked w manage donations
-    }
+    }**/
 
 
 }
