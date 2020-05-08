@@ -16,7 +16,7 @@
          <children>
             <PasswordField layoutX="106.0" layoutY="98.0" />
             <TextField layoutX="106.0" layoutY="52.0" />
-            <Button layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#LogIn" text="Log in" />
+            <Button fx:id="LogIn" layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#LogIn" text="Log in" />
             <Text layoutX="14.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail Address:" wrappingWidth="105.21875" />
             <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="85.21875" />
             <Label layoutX="120.0" layoutY="14.0" text="Log in" textFill="#720707">
@@ -29,7 +29,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="89.0" layoutY="254.0" mnemonicParsing="false" text="I want to donate!" />
+            <Button fx:id="Donate" layoutX="89.0" layoutY="254.0" mnemonicParsing="false" onAction="#Donate" text="I want to donate!" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="390.0" fitWidth="367.0" layoutX="14.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
