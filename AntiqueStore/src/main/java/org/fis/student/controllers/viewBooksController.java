@@ -90,7 +90,7 @@ public class viewBooksController implements Initializable {
         return books;
     }*/
 
-    public ObservableList<Book> readFromFile() throws IOException, ParseException {
+    public static ObservableList<Book> readFromFile() throws IOException, ParseException {
         ObservableList<Book> books = FXCollections.observableArrayList();
         JSONParser jsonParser = new JSONParser();
         FileReader reader = new FileReader("../AntiqueStore/src/main/resources/books.json");

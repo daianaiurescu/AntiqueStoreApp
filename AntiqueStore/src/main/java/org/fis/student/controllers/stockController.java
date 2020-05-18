@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.fis.student.controllers.viewBooksController;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,6 +26,7 @@ import org.json.*;
 import org.fis.student.Book;
 import org.fis.student.utils.CSVUtils;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import sun.java2d.pipe.SpanShapeRenderer;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -53,7 +55,7 @@ public class stockController implements Initializable {
     @FXML private TableColumn<Book, String> publishingHouseColumn;
     @FXML private TableColumn<Book, String> yearColumn;
     @FXML private TableColumn<Book, String> quantityColumn;
-    @FXML private TableColumn<Book, Double> priceColumn;
+    @FXML private TableColumn<Book, String> priceColumn;
 
     //The following variables will be used in order to create a new book
     @FXML private TextField titleTextField;
@@ -94,7 +96,13 @@ public class stockController implements Initializable {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         //load dummy data
-        //tableView.setItems(getBooks());
+        try {
+            tableView.setItems(viewBooksController.readFromFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         tableView.setEditable(true);
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -127,7 +135,13 @@ public class stockController implements Initializable {
             Book newBook = new Book(titleTextField.getText(), authorTextField.getText(),
                     publishingHouseTextField.getText(), valueOf(yearValue), valueOf(priceValue), valueOf(quantityValue));
 
-            writeNewBook(newBook);
+            try {
+                writeNewBook(newBook);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             tableView.getItems().add(newBook);
 
@@ -135,17 +149,29 @@ public class stockController implements Initializable {
         }
 
 
-    public void writeNewBook(Book newBook) {
-        JSONParser jsonParser = new JSONParser();
-        ObservableList<Book> books = FXCollections.observableArrayList();
-        //Iterator<Book> itr = books.iterator();
+    public void writeNewBook(Book newBook) throws IOException, ParseException {
+        ObservableList<Book> bookList = FXCollections.observableArrayList();
+        bookList = viewBooksController.readFromFile();
 
 
-        //Iterator<Book> itr = books.iterator();
-        JSONObject bookDetails = new JSONObject();
-        JSONObject bookObject = new JSONObject();
-        Book aux;
-        /*while (Book aux: bookList){
+
+        /*JSONObject obj = new JSONObject();
+        obj.put("title", newBook.getTitle());
+        obj.put("author", newBook.getAuthor());
+        obj.put("publishingHouse", newBook.getPublishingHouse());
+        obj.put("year", newBook.getYear());
+        obj.put("price", newBook.getPrice());
+        obj.put("quantity", newBook.getQuantity());*/
+
+        bookList.add(newBook);
+
+        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
+
+
+        JSONArray books = new JSONArray();
+        //Book aux;
+        for (Book aux: bookList){
+            JSONObject bookDetails = new JSONObject();
             bookDetails.put("title", aux.getTitle());
             bookDetails.put("author", aux.getAuthor());
             bookDetails.put("publishingHouse", aux.getPublishingHouse());
@@ -154,19 +180,26 @@ public class stockController implements Initializable {
             bookDetails.put("quantity", aux.getQuantity());
 
             JSONObject obj = new JSONObject();
-            obj.put("book", bookDetails);
+            //obj.put("book", bookDetails);
 
-            try (FileWriter file = new FileWriter("C:\\Users\\Patri\\Desktop\\AntiqueStoreApp\\AntiqueStore\\src\\main\\resources\\books.json")) {
+            books.add(bookDetails);
+
+
+            /*//try (FileWriter file = new FileWriter("C:\\Users\\Patri\\Desktop\\AntiqueStoreApp\\AntiqueStore\\src\\main\\resources\\books.json")) {
 
                 file.write(obj.toJSONString());
                 file.flush();
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
 
-        }*/
+        }
+
+        file.write(books.toJSONString());
+        file.flush();
+
     }
 
     public void changeQuantity(CellEditEvent edittedCell){
