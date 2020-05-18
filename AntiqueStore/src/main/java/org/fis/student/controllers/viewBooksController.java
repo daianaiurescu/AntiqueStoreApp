@@ -71,7 +71,7 @@ public class viewBooksController implements Initializable {
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("quantity"));
 
-        //load dummy data
+
         try {
             tableView.setItems(readFromFile());
         } catch (IOException e) {

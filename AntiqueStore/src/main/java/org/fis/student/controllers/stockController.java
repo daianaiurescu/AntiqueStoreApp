@@ -95,7 +95,7 @@ public class stockController implements Initializable {
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        //load dummy data
+
         try {
             tableView.setItems(viewBooksController.readFromFile());
         } catch (IOException e) {
@@ -152,24 +152,12 @@ public class stockController implements Initializable {
     public void writeNewBook(Book newBook) throws IOException, ParseException {
         ObservableList<Book> bookList = FXCollections.observableArrayList();
         bookList = viewBooksController.readFromFile();
-
-
-
-        /*JSONObject obj = new JSONObject();
-        obj.put("title", newBook.getTitle());
-        obj.put("author", newBook.getAuthor());
-        obj.put("publishingHouse", newBook.getPublishingHouse());
-        obj.put("year", newBook.getYear());
-        obj.put("price", newBook.getPrice());
-        obj.put("quantity", newBook.getQuantity());*/
-
         bookList.add(newBook);
 
         FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
 
 
         JSONArray books = new JSONArray();
-        //Book aux;
         for (Book aux: bookList){
             JSONObject bookDetails = new JSONObject();
             bookDetails.put("title", aux.getTitle());
@@ -180,21 +168,7 @@ public class stockController implements Initializable {
             bookDetails.put("quantity", aux.getQuantity());
 
             JSONObject obj = new JSONObject();
-            //obj.put("book", bookDetails);
-
             books.add(bookDetails);
-
-
-            /*//try (FileWriter file = new FileWriter("C:\\Users\\Patri\\Desktop\\AntiqueStoreApp\\AntiqueStore\\src\\main\\resources\\books.json")) {
-
-                file.write(obj.toJSONString());
-                file.flush();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
-
         }
 
         file.write(books.toJSONString());

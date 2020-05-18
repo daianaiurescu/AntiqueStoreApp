@@ -1,1 +1,3 @@
-[{"quantity":"1","year":"2017","author":"Carol S. Dweck","price":"26.7","publishingHouse":"Curtea Veche","title":"Mindset"},{"quantity":"1","year":"1900","author":"DEF","price":"20.0","publishingHouse":"GHI","title":"ABC"},{"quantity":"3","year":"1905","author":"bbb","price":"20.4","publishingHouse":"ccc","title":"aaaa"}]
+[{"quantity":"15","year":"2017","author":"Carol S. Dweck","price":"26.7","publishingHouse":"Curtea Veche","title":"Mindset"},
+  {"quantity":"6","year":"1900","author":"DEF","price":"20.0","publishingHouse":"GHI","title":"ABC"},
+  {"quantity":"3","year":"1905","author":"bbb","price":"20.4","publishingHouse":"ccc","title":"aaaa"}]
