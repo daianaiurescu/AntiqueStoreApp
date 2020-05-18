@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fis.student.controllers.stockController">
+    <children>
+        <Text layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage stock" textAlignment="CENTER" wrappingWidth="650.0000000000001">
+            <font>
+                <Font name="Bodoni MT" size="27.0" />
+            </font>
+        </Text>
+        <VBox layoutX="7.0" layoutY="39.0" prefHeight="396.0" prefWidth="627.0" spacing="10.0">
+            <children>
+                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="550.0">
+                    <columns>
+                        <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="192.7999906539917" text="Title" />
+                        <TableColumn fx:id="authorColumn" prefWidth="123.99998474121094" text="Author" />
+                        <TableColumn fx:id="publishingHouseColumn" prefWidth="136.0" text="Publishing House" />
+                        <TableColumn fx:id="yearColumn" minWidth="0.0" prefWidth="56.7999267578125" text="Year" />
+                        <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="60.0" text="Price" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="58.4000244140625" text="Quantity" />
+                    </columns>
+                </TableView>
+                <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="620.0">
+                    <children>
+                        <TextField fx:id="titleTextField" prefHeight="26.0" prefWidth="218.0" promptText="Title" />
+                        <TextField fx:id="authorTextField" prefHeight="26.0" prefWidth="181.0" promptText="Author" />
+                        <TextField fx:id="publishingHouseTextField" prefHeight="26.0" prefWidth="198.0" promptText="Publishing House" />
+                        <Spinner fx:id="yearSpinner" />
+                  <Spinner fx:id="priceSpinner" amountToStepBy=".1" initialValue="20.0" max="300.0" min="0.1" />
+
+                        <Spinner fx:id="quantitySpinner" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#newBookButtonPushed" text="Add new book" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <Button fx:id="goback" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#GoBack" prefHeight="16.0" prefWidth="20.0" text="&lt;" />
+    </children>
+</AnchorPane>

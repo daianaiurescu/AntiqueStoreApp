@@ -1,7 +1,7 @@
-{
-  "user": [
+
+ [
     {"mailField": "jane.doe@gmail.com",
-     "passwordField": "jane123",
+     "passwordField": "amFuZTEyMw==",
       "roleField" : "Administrator"
     },
     {"mailField": "john.doe@gmail.com",
@@ -31,6 +31,5 @@
     {"mailField": "ross.geller@gmail.com",
       "passwordField":"cm9zczEyMw==",
       "roleField" : "Client"
-    },
-
-}
+    }
+ ]

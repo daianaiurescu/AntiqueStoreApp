@@ -14,8 +14,8 @@
    <children>
       <AnchorPane layoutX="393.0" layoutY="34.0" prefHeight="332.0" prefWidth="300.0" style="-fx-background-color: #F8E6E0;">
          <children>
-            <PasswordField layoutX="106.0" layoutY="98.0" />
-            <TextField layoutX="106.0" layoutY="52.0" />
+            <PasswordField fx:id="passwordField" layoutX="106.0" layoutY="98.0" />
+            <TextField fx:id="mailField" layoutX="106.0" layoutY="52.0" />
             <Button fx:id="LogIn" layoutX="118.0" layoutY="153.0" mnemonicParsing="false" onAction="#LogIn" text="Log in" />
             <Text layoutX="14.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail Address:" wrappingWidth="105.21875" />
             <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="85.21875" />

@@ -1,0 +1,17 @@
+[
+  {"quantity":"1",
+  "year":"2017",
+  "author":"Carol S. Dweck",
+  "price": "26.7",
+  "publishingHouse":"Curtea Veche",
+  "title":"Mindset"},
+
+  {"quantity":"4",
+    "year":"2016",
+    "author":"Friedrich Nietzsche",
+    "price": "12.3",
+    "publishingHouse":"Penguin Books Ltd",
+    "title":"Why am I so clever"
+
+  }
+]
