@@ -4,17 +4,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.fis.student.Book;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -57,9 +62,7 @@ public class viewBooksController implements Initializable {
     private TableColumn<Book, String> quantityColumn;
 
     @FXML
-    void handleAddBookToCartAction(ActionEvent event) {
-
-    }
+    private Button cart;
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,8 +73,8 @@ public class viewBooksController implements Initializable {
         yearColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("year"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("quantity"));
-
-
+        tableView.setEditable(true);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         try {
             tableView.setItems(readFromFile());
         } catch (IOException e) {
@@ -107,4 +110,45 @@ public class viewBooksController implements Initializable {
         return books;
 
     }
+
+
+    //For the cart
+    public static ObservableList<Book> selectedBooks=FXCollections.observableArrayList();
+    @FXML
+    public void AddBook(ActionEvent event) {
+        ObservableList<Book> books = tableView.getSelectionModel().getSelectedItems();
+        setSelectedBooks(books);
+        Dialog d;
+        d = new Alert(Alert.AlertType.INFORMATION, "Book(s) added to cart");
+        d.show();
+        return ;
+    }
+    public void setSelectedBooks(ObservableList<Book> books){
+        for(Book b : books){
+            selectedBooks.add(b);
+        }
+    }
+    public static ObservableList<Book> getSelectedBooks(){
+        for(Book b : selectedBooks){
+            b.setQuantity("1");
+        }
+        return selectedBooks;
+    }
+
+   @FXML
+    private void openCartView(ActionEvent event) {
+       try {
+           Stage stage = (Stage) cart.getScene().getWindow();
+           stage.setTitle("Shopping Cart");
+           Parent CartRoot= FXMLLoader.load(getClass().getClassLoader().getResource("Cart.fxml"));
+           Scene scene = new Scene(CartRoot);
+           stage.setScene(scene);
+           stage.show();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+
+    }
+
+
 }

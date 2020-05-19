@@ -1,7 +1,9 @@
 package org.fis.student;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 
 public class Book {
     private SimpleStringProperty title, author, publishingHouse;

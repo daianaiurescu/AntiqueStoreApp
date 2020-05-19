@@ -53,7 +53,7 @@ public class LogInController {
             else{//for client view
                 try {
                     Stage stage = (Stage) LogIn.getScene().getWindow();
-                    //stage.setTitle("Client's Page");
+                    stage.setTitle("Available Books");
                     Parent clientViewRoot = FXMLLoader.load(getClass().getClassLoader().getResource("viewBooks.fxml"));
                     Scene scene = new Scene(clientViewRoot);
                     stage.setScene(scene);
