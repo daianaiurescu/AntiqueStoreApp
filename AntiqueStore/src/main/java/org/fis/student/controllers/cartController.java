@@ -2,7 +2,12 @@ package org.fis.student.controllers;
 
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +17,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.fis.student.Book;
+import org.fis.student.Cart;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class cartController {
 
@@ -40,9 +49,17 @@ public class cartController {
     private TableColumn<Book, String> quantityColumn;
     @FXML
     private Button goback, order;
-    @FXML
-    private static Label total;
 
+    @FXML
+    private TableView<Double> totalTable;
+
+    @FXML
+    private TableColumn<Double,String> totalColumn;
+
+    @FXML
+    private Label total;
+
+    private  Cart c=new Cart(viewBooksController.selectedBooks);
 
     @FXML
     private void initialize(){
@@ -52,11 +69,40 @@ public class cartController {
         yearColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("year"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("quantity"));
+
         tableView.setItems(viewBooksController.getSelectedBooks());
         quantityColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
+
         tableView.setEditable(true);
+
+        total.setText(total().toString());
     }
 
+    public void ChangeBookQuantity(){
+        int nr_elem=viewBooksController.selectedBooks.size();
+        for(int i=0;i<nr_elem;i++) {
+            String newquantity=tableView.getColumns().get(5).getCellObservableValue(i).getValue().toString();
+            viewBooksController.selectedBooks.get(i).setQuantity(newquantity);
+        }
+    }
+
+    public Double total(){
+        Double sum=0.0;
+        for(Book b : viewBooksController.selectedBooks)
+            sum += Double.parseDouble(b.getPrice()) * Double.parseDouble(b.getQuantity());
+        return sum;
+    }
+
+    @FXML
+    public void ModifyQty(TableColumn.CellEditEvent<Book, String> event){
+        Book b=tableView.getSelectionModel().getSelectedItem();
+        b.setQuantity(event.getNewValue());
+        ChangeBookQuantity();
+        c.setTotal(total());
+        total.setText(c.getTotal().toString());
+    }
+
+    @FXML
     public void Goback(ActionEvent event) {
         try {
             Stage stage = (Stage) goback.getScene().getWindow();
@@ -70,9 +116,10 @@ public class cartController {
         }
     }
 
+    @FXML
     public void Order(ActionEvent event) {
         try {
-            Stage stage = (Stage) goback.getScene().getWindow();
+            Stage stage = (Stage) order.getScene().getWindow();
             stage.setTitle("Your info");
             Parent orderFormRoot= FXMLLoader.load(getClass().getClassLoader().getResource("PlaceOrderForm.fxml"));
             Scene scene = new Scene(orderFormRoot);

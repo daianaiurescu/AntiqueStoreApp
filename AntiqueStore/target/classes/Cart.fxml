@@ -14,25 +14,24 @@
          </font>
       </Text>
       <Button fx:id="order" layoutX="300.0" layoutY="394.0" mnemonicParsing="false" onAction="#Order" text="Place Order!" />
-      <TableView fx:id="tableView" layoutX="28.0" layoutY="75.0" prefHeight="250.0" prefWidth="639.0" style="-fx-background-color: #F8E6E0;">
+      <TableView fx:id="tableView" layoutX="28.0" layoutY="56.0" prefHeight="250.0" prefWidth="639.0" style="-fx-background-color: #F8E6E0;">
         <columns>
           <TableColumn fx:id="titleColumn" prefWidth="113.0" text="Title" />
           <TableColumn fx:id="authorColumn" prefWidth="128.0" text="Author" />
             <TableColumn fx:id="publishingHouseColumn" prefWidth="111.0" text="Publising House" />
             <TableColumn fx:id="yearColumn" prefWidth="119.0" text="Year of Publishing" />
             <TableColumn fx:id="priceColumn" prefWidth="50.0" text="Price" />
-            <TableColumn fx:id="quantityColumn" prefWidth="117.0" text="Desired Quantity" />
+            <TableColumn fx:id="quantityColumn" onEditCommit="#ModifyQty" prefWidth="117.0" text="Desired Quantity" />
         </columns>
       </TableView>
-      <HBox layoutX="237.0" layoutY="338.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #F8E6E0;">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:" textAlignment="CENTER" wrappingWidth="79.6435546875">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Label fx:id="total" />
-         </children>
-      </HBox>
+      <Label fx:id="total" layoutX="348.0" layoutY="336.0" prefHeight="37.0" prefWidth="71.0" text="Label" textAlignment="CENTER" textFill="#f8f8f8">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Text fill="WHITE" layoutX="252.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

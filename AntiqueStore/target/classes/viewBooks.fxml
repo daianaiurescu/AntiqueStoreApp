@@ -22,12 +22,12 @@
             <Font name="Book Antiqua" size="33.0" />
          </font>
       </Text>
-      <ImageView fitHeight="82.0" fitWidth="30.0" layoutX="605.0" layoutY="14.0" preserveRatio="true">
+      <ImageView fitHeight="82.0" fitWidth="30.0" layoutX="543.0" layoutY="16.0" preserveRatio="true">
          <image>
             <Image url="@126083.png" />
          </image>
       </ImageView>
-      <Button fx:id="cart" layoutX="546.0" layoutY="17.0" onAction="#openCartView" text="View Cart" />
+      <Button fx:id="cart" layoutX="573.0" layoutY="17.0" onAction="#openCartView" text="View Cart" />
       <Button fx:id="addBookToCart" layoutX="285.0" layoutY="319.0" mnemonicParsing="false" onAction="#AddBook" text="Add book to cart" />
       <TableView fx:id="tableView" editable="true" layoutX="25.0" layoutY="93.0" prefHeight="200.0" prefWidth="626.0">
          <columns>
