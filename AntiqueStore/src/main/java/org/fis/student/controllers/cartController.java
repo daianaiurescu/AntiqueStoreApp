@@ -59,7 +59,7 @@ public class cartController {
     @FXML
     private Label total;
 
-    private  Cart c=new Cart(viewBooksController.selectedBooks);
+    public static Cart c=new Cart(viewBooksController.selectedBooks);
 
     @FXML
     private void initialize(){
