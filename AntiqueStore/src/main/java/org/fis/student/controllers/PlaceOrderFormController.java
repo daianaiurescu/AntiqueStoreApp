@@ -1,5 +1,6 @@
 package org.fis.student.controllers;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,8 +17,6 @@ public class PlaceOrderFormController {
     @FXML
     private TextField firstName, lastName, address, phoneNumber, city;
 
-    @FXML
-    private Button orderButton;
 
     private Order o;
 
@@ -30,41 +29,34 @@ public class PlaceOrderFormController {
         FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
 
 
-        JSONArray orders = new JSONArray();
+        JSONArray all_orders = new JSONArray();
+        JSONObject OrderDetails = new JSONObject();
 
-        for (Order aux: OrderList){
-            JSONObject OrderDetails = new JSONObject();
+        for (Order aux: OrderList) {
             OrderDetails.put("firstName", aux.getClient().getFirstName());
             OrderDetails.put("lastName", aux.getClient().getLastName());
             OrderDetails.put("phoneNumber", aux.getClient().getPhoneNumber());
             OrderDetails.put("City", aux.getClient().getCity());
             OrderDetails.put("Address", aux.getClient().getAddress());
 
-            int no_of_books=aux.getCart().getBooks().size();
+            int no_of_books = aux.getCart().getBooks().size();
 
-            JSONArray titleArray=(JSONArray)OrderDetails.get("selectedTitles");
-            JSONArray authorArray=(JSONArray)OrderDetails.get("selectedAuthors");
-            JSONArray qtiesArray=(JSONArray)OrderDetails.get("selectedQuantities");
-            for(int i=0;i<no_of_books;i++){
+            JSONArray books = new JSONArray();
 
-                //OrderDetails.get("selectedTitles").put( ((JSONArray) OrderDetails.get("selectedTitles")), aux.getCart().getBooks().get(i).getTitle());
-               // OrderDetails.put(((JSONArray) OrderDetails.get("selectedAuthors")), aux.getCart().getBooks().get(i).getAuthor());
-                //OrderDetails.put(((JSONArray) OrderDetails.get("selectedQuantities")), aux.getCart().getBooks().get(i).getQuantity());
-
-                //OrderDetails.get("selectedTitles");
-                /**titleArray.add(aux.getCart().getBooks().get(i).getTitle());
-                authorArray.add(aux.getCart().getBooks().get(i).getAuthor());
-                qtiesArray.add(aux.getCart().getBooks().get(i).getQuantity());**/
+            for (int i = 0; i < no_of_books; i++) {
+                JSONObject book_i = new JSONObject();
+                book_i.put("Title", aux.getCart().getBooks().get(i).getTitle());
+                book_i.put("Author", aux.getCart().getBooks().get(i).getAuthor());
+                book_i.put("PublishingHouse", aux.getCart().getBooks().get(i).getPublishingHouse());
+                book_i.put("Quantity", aux.getCart().getBooks().get(i).getQuantity());
+                books.add(book_i);
             }
-
-            JSONObject obj = new JSONObject();
-
-            orders.add(OrderDetails);
+            OrderDetails.put("Books", books);
+            all_orders.add(OrderDetails);
         }
 
-        file.write(orders.toJSONString());
+        file.write(all_orders.toJSONString());
         file.flush();
-
     }
 
 
