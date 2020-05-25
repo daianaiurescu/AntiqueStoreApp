@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="870.0" style="-fx-background-color: #2A120A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="358.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Orders">
+         <font>
+            <Font name="Apple Chancery" size="24.0" />
+         </font>
+      </Text>
+      <TableView layoutX="14.0" layoutY="78.0" prefHeight="367.0" prefWidth="502.0">
+        <columns>
+          <TableColumn prefWidth="95.0" text="First Name" />
+          <TableColumn prefWidth="92.0" text="Last Name" />
+            <TableColumn prefWidth="117.0" text="Phone Number" />
+            <TableColumn prefWidth="90.0" text="City" />
+            <TableColumn prefWidth="113.0" text="Address" />
+        </columns>
+      </TableView>
+      <TableView layoutX="548.0" layoutY="78.0" prefHeight="243.0" prefWidth="317.0">
+        <columns>
+          <TableColumn prefWidth="94.0" text="Title" />
+          <TableColumn text="Author" />
+            <TableColumn prefWidth="75.0" text="PH" />
+            <TableColumn prefWidth="75.0" text="Quantity" />
+        </columns>
+      </TableView>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="&lt;" />
+      <Button layoutX="566.0" layoutY="366.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="102.0" text="ACCEPT" />
+      <Button layoutX="744.0" layoutY="366.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="102.0" text="DECLINE" />
+   </children>
+</AnchorPane>
