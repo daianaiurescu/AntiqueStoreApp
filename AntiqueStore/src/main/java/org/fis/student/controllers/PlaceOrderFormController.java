@@ -38,7 +38,7 @@ public class PlaceOrderFormController {
             OrderDetails.put("phoneNumber", aux.getClient().getPhoneNumber());
             OrderDetails.put("City", aux.getClient().getCity());
             OrderDetails.put("Address", aux.getClient().getAddress());
-
+            OrderDetails.put("Total", aux.getCart().getTotal());
             int no_of_books = aux.getCart().getBooks().size();
 
             JSONArray books = new JSONArray();
@@ -48,6 +48,8 @@ public class PlaceOrderFormController {
                 book_i.put("Title", aux.getCart().getBooks().get(i).getTitle());
                 book_i.put("Author", aux.getCart().getBooks().get(i).getAuthor());
                 book_i.put("PublishingHouse", aux.getCart().getBooks().get(i).getPublishingHouse());
+                book_i.put("Year", aux.getCart().getBooks().get(i).getYear());
+                book_i.put("Price", aux.getCart().getBooks().get(i).getPrice());
                 book_i.put("Quantity", aux.getCart().getBooks().get(i).getQuantity());
                 books.add(book_i);
             }
