@@ -5,33 +5,34 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="870.0" style="-fx-background-color: #2A120A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="983.0" style="-fx-background-color: #2A120A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fis.student.controllers.manageOrderController">
    <children>
       <Text fill="WHITE" layoutX="358.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Orders">
          <font>
             <Font name="Apple Chancery" size="24.0" />
          </font>
       </Text>
-      <TableView layoutX="14.0" layoutY="78.0" prefHeight="367.0" prefWidth="502.0">
+      <TableView fx:id="table1" layoutX="14.0" layoutY="78.0" prefHeight="367.0" prefWidth="503.0">
         <columns>
-          <TableColumn prefWidth="95.0" text="First Name" />
-          <TableColumn prefWidth="92.0" text="Last Name" />
-            <TableColumn prefWidth="117.0" text="Phone Number" />
-            <TableColumn prefWidth="90.0" text="City" />
-            <TableColumn prefWidth="113.0" text="Address" />
+          <TableColumn fx:id="FirstName" prefWidth="95.0" text="First Name" />
+          <TableColumn fx:id="LastName" prefWidth="92.0" text="Last Name" />
+            <TableColumn fx:id="PhoneNumber" prefWidth="117.0" text="Phone Number" />
+            <TableColumn fx:id="City" prefWidth="90.0" text="City" />
+            <TableColumn fx:id="Address" prefWidth="113.0" text="Address" />
         </columns>
       </TableView>
-      <TableView layoutX="548.0" layoutY="78.0" prefHeight="243.0" prefWidth="317.0">
+      <TableView fx:id="table2" layoutX="530.0" layoutY="78.0" prefHeight="225.0" prefWidth="439.0">
         <columns>
-          <TableColumn prefWidth="94.0" text="Title" />
-          <TableColumn text="Author" />
-            <TableColumn prefWidth="75.0" text="PH" />
-            <TableColumn prefWidth="75.0" text="Quantity" />
+          <TableColumn fx:id="Title" prefWidth="99.0" text="Title" />
+          <TableColumn fx:id="Author" prefWidth="100.0" text="Author" />
+            <TableColumn fx:id="PH" prefWidth="99.0" text="PH" />
+            <TableColumn fx:id="Quantity" prefWidth="72.0" text="Quantity" />
+            <TableColumn fx:id="Price" prefWidth="75.0" text="Price" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="&lt;" />
-      <Button layoutX="566.0" layoutY="366.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="102.0" text="ACCEPT" />
-      <Button layoutX="744.0" layoutY="366.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="102.0" text="DECLINE" />
+      <Button fx:id="GoBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#GoBack" text="&lt;" />
+      <Button fx:id="Accept" layoutX="634.0" layoutY="407.0" mnemonicParsing="false" onAction="#AcceptOrder" prefHeight="27.0" prefWidth="102.0" text="ACCEPT" />
+      <Button fx:id="Decline" layoutX="814.0" layoutY="407.0" mnemonicParsing="false" onAction="#DeleteOrder" prefHeight="27.0" prefWidth="102.0" text="DECLINE" />
+      <Label fx:id="Total" layoutX="746.0" layoutY="336.0" prefHeight="27.0" prefWidth="102.0" text="TOTAL" textAlignment="CENTER" textFill="#fffdfd" />
    </children>
 </AnchorPane>

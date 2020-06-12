@@ -14,4 +14,13 @@ public class Client {
     public String getAddress(){return address;}
     public String getPhoneNumber(){return phoneNumber;}
     public String getCity(){return city;}
+    public boolean equals(Object o){
+        if(o instanceof Client){
+            Client c=(Client)o;
+             if (this.getFirstName().equals(c.getFirstName()) && this.getLastName().equals(c.getLastName()) &&
+                     this.getAddress().equals(c.getAddress()) && this.getCity().equals(c.getCity()) && this.getPhoneNumber().equals(c.getPhoneNumber()))
+                    return true;
+        }
+        return false;
+    }
 }

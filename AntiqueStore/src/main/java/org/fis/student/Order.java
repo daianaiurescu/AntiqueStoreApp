@@ -11,4 +11,7 @@ public class Order {
     }
     public Cart getCart(){return cart;}
     public Client getClient(){return client;}
+    public void setClient(Client c){client=c;}
+    public void setCart(Cart c){cart=c;}
+
 }

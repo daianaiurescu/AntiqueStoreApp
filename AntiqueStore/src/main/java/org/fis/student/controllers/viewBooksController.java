@@ -74,7 +74,7 @@ public class viewBooksController implements Initializable {
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("quantity"));
         tableView.setEditable(true);
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         try {
             tableView.setItems(readFromFile());
         } catch (IOException e) {
@@ -82,6 +82,7 @@ public class viewBooksController implements Initializable {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     /*public ObservableList<Book> getBooks(){
@@ -99,7 +100,7 @@ public class viewBooksController implements Initializable {
         FileReader reader = new FileReader("../AntiqueStore/src/main/resources/books.json");
         Object obj = jsonParser.parse(reader);
 
-        JSONArray bookList = (JSONArray)obj;
+        JSONArray bookList = (JSONArray) obj;
 
         for (Object book : bookList) {
             JSONObject o = (JSONObject) book;
@@ -113,42 +114,55 @@ public class viewBooksController implements Initializable {
 
 
     //For the cart
-    public static ObservableList<Book> selectedBooks=FXCollections.observableArrayList();
+    public ObservableList<Book> selectedBooks = FXCollections.observableArrayList();
+
     @FXML
     public void AddBook(ActionEvent event) {
         ObservableList<Book> books = tableView.getSelectionModel().getSelectedItems();
         setSelectedBooks(books);
         Dialog d;
-        d = new Alert(Alert.AlertType.INFORMATION, "Book(s) added to cart");
+        d = new Alert(Alert.AlertType.INFORMATION, "Book added to cart");
         d.show();
-        return ;
+        return;
     }
-    public void setSelectedBooks(ObservableList<Book> books){
-        for(Book b : books){
+
+    public void setSelectedBooks(ObservableList<Book> books) {
+        for (Book b : books) {
             selectedBooks.add(b);
         }
     }
-    public static ObservableList<Book> getSelectedBooks(){
-        for(Book b : selectedBooks){
+
+    public ObservableList<Book> getSelectedBooks() {
+        for (Book b : selectedBooks) {
             b.setQuantity("1");
         }
         return selectedBooks;
     }
 
-   @FXML
+    @FXML
     private void openCartView(ActionEvent event) {
-       try {
-           Stage stage = (Stage) cart.getScene().getWindow();
-           stage.setTitle("Shopping Cart");
-           Parent CartRoot= FXMLLoader.load(getClass().getClassLoader().getResource("Cart.fxml"));
-           Scene scene = new Scene(CartRoot);
-           stage.setScene(scene);
-           stage.show();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
+        try {
+
+            Stage stage=(Stage) cart.getScene().getWindow();
+            stage.setTitle("Shopping Cart");
+
+            FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Cart.fxml"));
+            Parent root=loader.load();
+
+            cartController controller2=loader.getController();
+            selectedBooks=getSelectedBooks();
+            controller2.getSelectedBooksFromController1(selectedBooks);
+
+
+            Scene scene=new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-
-
 }
+
+

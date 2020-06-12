@@ -8,8 +8,10 @@ import javafx.scene.control.*;
 import org.fis.student.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -19,29 +21,40 @@ public class PlaceOrderFormController {
 
 
     private Order o;
+    private  Cart c;
+
+    public void getCartFromController1(Cart cart){
+        c=new Cart(cart.getBooks());
+        c.setTotal(cart.getTotal());
+    }
 
 
     public void writeNewOrder(Order newOrder) throws IOException, ParseException {
+
         ObservableList<Order> OrderList = FXCollections.observableArrayList();
-        //OrderList = manageOrderController.readOrdersFromFile();
+        OrderList = manageOrderController.ReadOrder();
 
         OrderList.add(newOrder);
+
         FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
 
 
         JSONArray all_orders = new JSONArray();
-        JSONObject OrderDetails = new JSONObject();
+
 
         for (Order aux: OrderList) {
+            JSONObject OrderDetails = new JSONObject();
             OrderDetails.put("firstName", aux.getClient().getFirstName());
             OrderDetails.put("lastName", aux.getClient().getLastName());
             OrderDetails.put("phoneNumber", aux.getClient().getPhoneNumber());
             OrderDetails.put("City", aux.getClient().getCity());
             OrderDetails.put("Address", aux.getClient().getAddress());
             OrderDetails.put("Total", aux.getCart().getTotal());
+
             int no_of_books = aux.getCart().getBooks().size();
 
             JSONArray books = new JSONArray();
+            books.clear();
 
             for (int i = 0; i < no_of_books; i++) {
                 JSONObject book_i = new JSONObject();
@@ -57,8 +70,10 @@ public class PlaceOrderFormController {
             all_orders.add(OrderDetails);
         }
 
-        file.write(all_orders.toJSONString());
-        file.flush();
+            file.write(all_orders.toJSONString());
+            file.flush();
+
+
     }
 
 
@@ -72,12 +87,10 @@ public class PlaceOrderFormController {
             d.show();
             return;
         }
+
         else{
-
             Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());
-            Cart ca=new Cart(cartController.c.getBooks());
-            o=new Order(ca,cl);
-
+            o=new Order(c, cl);
             try {
                 writeNewOrder(o);
             }catch(IOException e){
