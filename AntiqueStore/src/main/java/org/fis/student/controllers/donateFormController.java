@@ -132,9 +132,8 @@ public class donateFormController{
             donationDetails.put("bookTitle", aux.getBookTitle());
             donationDetails.put("bookAuthor", aux.getBookAuthor());
             donationDetails.put("bookPublishingHouse", aux.getBookPublishingHouse());
-            donationDetails.put("bookYearOfPublishing", aux.getBookYearOfPublishing());
+            donationDetails.put("bookYearOfPublishing", aux.getBookYear());
 
-            JSONObject obj = new JSONObject();
 
             donations.add(donationDetails);
         }
