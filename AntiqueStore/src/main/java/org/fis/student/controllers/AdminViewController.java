@@ -34,6 +34,9 @@ public class AdminViewController {
     private Button manageOrder;
 
     @FXML
+    private Button manageDonationButton;
+
+    @FXML
     public void modifyStock(){
         try {
             Stage stage = (Stage) modifyStockButton.getScene().getWindow();
@@ -54,6 +57,20 @@ public class AdminViewController {
             stage.setTitle("Manage Order");
             Parent managestockRoot= load(getClass().getClassLoader().getResource("manageOrders.fxml"));
             Scene scene = new Scene(managestockRoot);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void manageDonation(){
+        try {
+            Stage stage = (Stage) manageDonationButton.getScene().getWindow();
+            stage.setTitle("Manage Donations");
+            Parent manageDonationRoot= load(getClass().getClassLoader().getResource("manageDonations.fxml"));
+            Scene scene = new Scene(manageDonationRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
