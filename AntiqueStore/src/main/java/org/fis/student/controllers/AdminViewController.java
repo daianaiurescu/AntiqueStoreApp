@@ -31,11 +31,28 @@ public class AdminViewController {
     private Button modifyStockButton;
 
     @FXML
+    private Button manageOrder;
+
+    @FXML
     public void modifyStock(){
         try {
             Stage stage = (Stage) modifyStockButton.getScene().getWindow();
             stage.setTitle("Modify Stock");
             Parent managestockRoot= load(getClass().getClassLoader().getResource("manageStock.fxml"));
+            Scene scene = new Scene(managestockRoot);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void ManageOrder(){
+        try {
+            Stage stage = (Stage) manageOrder.getScene().getWindow();
+            stage.setTitle("Manage Order");
+            Parent managestockRoot= load(getClass().getClassLoader().getResource("manageOrders.fxml"));
             Scene scene = new Scene(managestockRoot);
             stage.setScene(scene);
             stage.show();

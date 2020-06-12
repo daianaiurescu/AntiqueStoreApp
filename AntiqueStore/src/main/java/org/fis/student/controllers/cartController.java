@@ -1,11 +1,5 @@
 package org.fis.student.controllers;
 
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,16 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.fis.student.Book;
 import org.fis.student.Cart;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 
 public class cartController {
-
     @FXML
     private TableView<Book> tableView;
 
@@ -51,15 +41,13 @@ public class cartController {
     private Button goback, order;
 
     @FXML
-    private TableView<Double> totalTable;
-
-    @FXML
-    private TableColumn<Double,String> totalColumn;
-
-    @FXML
     private Label total;
 
-    public static Cart c=new Cart(viewBooksController.selectedBooks);
+
+
+    private ObservableList<Book> selectedBooks=FXCollections.observableArrayList();
+    private Cart c=new Cart(selectedBooks);
+
 
     @FXML
     private void initialize(){
@@ -70,25 +58,35 @@ public class cartController {
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("quantity"));
 
-        tableView.setItems(viewBooksController.getSelectedBooks());
+        tableView.setItems(c.getBooks());
+
         quantityColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
 
         tableView.setEditable(true);
 
-        total.setText(total().toString());
     }
 
+
+    public ObservableList<Book> getSelectedBooksFromController1(ObservableList<Book> books){
+        for(Book b : books) {
+            c.getBooks().add(b);
+        }
+        total.setText(total().toString());
+        return c.getBooks();
+    }
+
+
     public void ChangeBookQuantity(){
-        int nr_elem=viewBooksController.selectedBooks.size();
+        int nr_elem=c.getBooks().size();
         for(int i=0;i<nr_elem;i++) {
             String newquantity=tableView.getColumns().get(5).getCellObservableValue(i).getValue().toString();
-            viewBooksController.selectedBooks.get(i).setQuantity(newquantity);
+            c.getBooks().get(i).setQuantity(newquantity);
         }
     }
 
-    public Double total(){
+    public  Double total(){
         Double sum=0.0;
-        for(Book b : viewBooksController.selectedBooks)
+        for(Book b : c.getBooks())
             sum += Double.parseDouble(b.getPrice()) * Double.parseDouble(b.getQuantity());
         return sum;
     }
@@ -98,31 +96,26 @@ public class cartController {
         Book b=tableView.getSelectionModel().getSelectedItem();
         b.setQuantity(event.getNewValue());
         ChangeBookQuantity();
-        c.setTotal(total());
-        total.setText(c.getTotal().toString());
+        c.setTotal(total().toString());
+        total.setText(c.getTotal());
     }
 
-    @FXML
-    public void Goback(ActionEvent event) {
-        try {
-            Stage stage = (Stage) goback.getScene().getWindow();
-            stage.setTitle("Available Books");
-            Parent viewBooksRoot= FXMLLoader.load(getClass().getClassLoader().getResource("viewBooks.fxml"));
-            Scene scene = new Scene(viewBooksRoot);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void Order(ActionEvent event) {
         try {
-            Stage stage = (Stage) order.getScene().getWindow();
+            Stage stage=(Stage) order.getScene().getWindow();
             stage.setTitle("Your info");
-            Parent orderFormRoot= FXMLLoader.load(getClass().getClassLoader().getResource("PlaceOrderForm.fxml"));
-            Scene scene = new Scene(orderFormRoot);
+
+            FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("PlaceOrderForm.fxml"));
+            Parent root=loader.load();
+
+            c.setTotal(total.getText());
+            PlaceOrderFormController controller2=loader.getController();
+            controller2.getCartFromController1(c);
+
+
+            Scene scene=new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

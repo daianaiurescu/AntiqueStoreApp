@@ -4,20 +4,20 @@ import javafx.collections.ObservableList;
 
 public class Cart {
     private ObservableList<Book> books;
-    private Double total;
+    private String total;
     public Cart(ObservableList<Book> books){
         this.books=books;
     }
     public void setBooks(ObservableList<Book> books) {
         this.books = books;
     }
-    public void setTotal(Double total){
+    public void setTotal(String total){
         this.total=total;
     }
     public ObservableList<Book> getBooks(){
         return books;
     }
-    public Double getTotal(){
+    public String getTotal(){
         return total;
     }
 }

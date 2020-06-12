@@ -7,7 +7,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="680.0" style="-fx-background-color: #2A120A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fis.student.controllers.cartController">
    <children>
-      <Button fx:id="goback" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#Goback" prefHeight="27.0" prefWidth="24.0" text="&lt;" />
       <Text fill="WHITE" layoutX="262.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Shopping Cart">
          <font>
             <Font name="Apple Chancery" size="18.0" />
