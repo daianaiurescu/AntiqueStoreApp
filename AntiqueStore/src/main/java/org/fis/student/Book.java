@@ -67,4 +67,19 @@ public class Book {
     public void setPrice(String price) {
         this.price.set(price);
     }
+
+    public boolean equals(Object o){
+        if(o instanceof Book){
+            if(((Book) o).getTitle().equals(this.getTitle()) && ((Book) o).getAuthor().equals(this.getAuthor()) &&
+            ((Book) o).getPrice().equals(this.getPrice()) && ((Book) o).getPublishingHouse().equals(this.getPublishingHouse()) &&
+            ((Book) o).getYear().equals(this.getYear()))
+                return true;
+        }
+        return false;
+    }
+
+    public String toString(){
+        String r = this.getTitle() +", "+this.getAuthor()+", "+this.getPublishingHouse()+", "+this.getYear()+", "+this.getPrice()+", q:"+this.getQuantity();
+        return r;
+    }
 }
