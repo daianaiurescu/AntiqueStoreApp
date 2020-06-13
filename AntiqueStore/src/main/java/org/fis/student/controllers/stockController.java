@@ -232,10 +232,46 @@ public class stockController {
 
     }
 
-    public void changeQuantity(CellEditEvent editedCell){
-        Book selectedBook = tableView.getSelectionModel().getSelectedItem();
-        selectedBook.setQuantity((String) editedCell.getNewValue());
+    public void handleDeleteBookButtonAction() throws IOException, ParseException {
+        ObservableList<Book> books = viewBooksController.readFromFile();
+        Book deletedBook = tableView.getSelectionModel().getSelectedItem();
+
+        Book aux1 = null;
+
+        for(Book b: books){
+            if(b.equals(deletedBook)) {
+                aux1 = b;
+                //System.out.println(aux1.toString());
+            }
+        }
+
+        if(aux1 != null) {
+            books.remove(aux1);
+
+            FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
+
+
+            JSONArray booksJSON = new JSONArray();
+            for (Book aux : books) {
+                JSONObject bookDetails = new JSONObject();
+                bookDetails.put("title", aux.getTitle());
+                bookDetails.put("author", aux.getAuthor());
+                bookDetails.put("publishingHouse", aux.getPublishingHouse());
+                bookDetails.put("price", aux.getPrice());
+                bookDetails.put("year", aux.getYear());
+                bookDetails.put("quantity", aux.getQuantity());
+
+
+                booksJSON.add(bookDetails);
+            }
+
+            file.write(booksJSON.toJSONString());
+            file.flush();
+            this.initialize();
+        }
     }
+
+
 
     public void GoBack() {
         try {
