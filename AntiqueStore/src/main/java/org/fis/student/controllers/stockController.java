@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.List;
 import java.util.HashMap;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,7 +46,7 @@ import static java.lang.String.valueOf;
 import static javafx.scene.control.cell.TextFieldTableCell.*;
 
 
-public class stockController implements Initializable {
+public class stockController {
 
     //configure the table
     @FXML private TableView<Book> tableView;
@@ -68,16 +70,11 @@ public class stockController implements Initializable {
 
 
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
    private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
         //configuring spinners
         SpinnerValueFactory<Integer> yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1700, Year.now().getValue(), 1900);
         this.yearSpinner.setValueFactory(yearValueFactory);
@@ -106,6 +103,66 @@ public class stockController implements Initializable {
         tableView.setEditable(true);
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        //modifying stock
+        quantityColumn.setOnEditCommit(
+                new EventHandler<CellEditEvent<Book, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Book, String> t) {
+                        Book actualizedBook = ((Book) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()));
+                        actualizedBook.setQuantity((String) t.getNewValue());
+                        //System.out.println(actualizedBook.toString());
+
+                        try {
+                            updateJSONFile(actualizedBook);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                );
+    }
+
+
+
+    public void updateJSONFile(Book actualizedBook) throws IOException, ParseException {
+        ObservableList<Book> books = viewBooksController.readFromFile();
+        Book aux1 = null;
+
+        for(Book b: books){
+            if(b.equals(actualizedBook)) {
+                aux1 = b;
+                //System.out.println(aux1.toString());
+            }
+        }
+
+        if(aux1 != null) {
+            books.remove(aux1); //deleting the same book that has the old quantity
+            books.add(actualizedBook); //adding the same book, with the updated quantity
+
+            FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
+
+
+            JSONArray booksJSON = new JSONArray();
+            for (Book aux : books) {
+                JSONObject bookDetails = new JSONObject();
+                bookDetails.put("title", aux.getTitle());
+                bookDetails.put("author", aux.getAuthor());
+                bookDetails.put("publishingHouse", aux.getPublishingHouse());
+                bookDetails.put("price", aux.getPrice());
+                bookDetails.put("year", aux.getYear());
+                bookDetails.put("quantity", aux.getQuantity());
+
+
+                booksJSON.add(bookDetails);
+            }
+
+            file.write(booksJSON.toJSONString());
+            file.flush();
+            this.initialize();
+        }
 
     }
 
@@ -175,10 +232,46 @@ public class stockController implements Initializable {
 
     }
 
-    public void changeQuantity(CellEditEvent edittedCell){
-        Book selectedBook = tableView.getSelectionModel().getSelectedItem();
-        selectedBook.setQuantity((String) edittedCell.getNewValue());
+    public void handleDeleteBookButtonAction() throws IOException, ParseException {
+        ObservableList<Book> books = viewBooksController.readFromFile();
+        Book deletedBook = tableView.getSelectionModel().getSelectedItem();
+
+        Book aux1 = null;
+
+        for(Book b: books){
+            if(b.equals(deletedBook)) {
+                aux1 = b;
+                //System.out.println(aux1.toString());
+            }
+        }
+
+        if(aux1 != null) {
+            books.remove(aux1);
+
+            FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
+
+
+            JSONArray booksJSON = new JSONArray();
+            for (Book aux : books) {
+                JSONObject bookDetails = new JSONObject();
+                bookDetails.put("title", aux.getTitle());
+                bookDetails.put("author", aux.getAuthor());
+                bookDetails.put("publishingHouse", aux.getPublishingHouse());
+                bookDetails.put("price", aux.getPrice());
+                bookDetails.put("year", aux.getYear());
+                bookDetails.put("quantity", aux.getQuantity());
+
+
+                booksJSON.add(bookDetails);
+            }
+
+            file.write(booksJSON.toJSONString());
+            file.flush();
+            this.initialize();
+        }
     }
+
+
 
     public void GoBack() {
         try {
