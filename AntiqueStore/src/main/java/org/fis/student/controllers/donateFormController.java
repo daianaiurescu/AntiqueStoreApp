@@ -68,15 +68,6 @@ public class donateFormController{
 
     @FXML
     void initialize() {
-        /*assert userLastNameField != null : "fx:id=\"userLastNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert userFirstNameField != null : "fx:id=\"userFirstNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert userEmailField != null : "fx:id=\"userEmailField\" was not injected: check your FXML file 'Untitled'.";
-        assert userNumberField != null : "fx:id=\"userNumberField\" was not injected: check your FXML file 'Untitled'.";
-        assert bookTitleField != null : "fx:id=\"bookTitleField\" was not injected: check your FXML file 'Untitled'.";
-        assert authorNameField != null : "fx:id=\"authorNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert publishingHouseField != null : "fx:id=\"publishingHouseField\" was not injected: check your FXML file 'Untitled'.";
-        assert publishingYearField != null : "fx:id=\"publishingYearField\" was not injected: check your FXML file 'Untitled'.";*/
-
     }
 
     @FXML private Text actiontarget;
