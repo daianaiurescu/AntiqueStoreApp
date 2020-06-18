@@ -125,7 +125,24 @@ public class BookTest extends TestCase{
     }
 
 
-    public void testGetPrice() {
+    public void testGetPrice()  throws NoSuchFieldException, IllegalAccessException{
+        final Field field1 = book.getClass().getDeclaredField("price");
+        field1.setAccessible(true);
+        field1.set(book, new SimpleStringProperty("20.0"));
+        final String result1 = book.getPrice();
+        Assert.assertEquals(result1, "20.0");
+
+        final Field field2 = book.getClass().getDeclaredField("price");
+        field2.setAccessible(true);
+        field2.set(book, new SimpleStringProperty("8.0"));
+        final String result2 = book.getPrice();
+        Assert.assertEquals(result2, "8.0");
+
+        final Field field3 = book.getClass().getDeclaredField("price");
+        field3.setAccessible(true);
+        field1.set(book, new SimpleStringProperty("33.0"));
+        final String result3 = book.getPrice();
+        Assert.assertEquals(result3, "33.0");
     }
 
    public void testSetQuantity() throws NoSuchFieldException, IllegalAccessException{
