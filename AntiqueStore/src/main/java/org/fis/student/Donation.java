@@ -26,100 +26,32 @@ public class Donation {
         return bookTitle.get();
     }
 
-    public SimpleStringProperty bookTitleProperty() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle.set(bookTitle);
-    }
-
     public String getBookAuthor() {
         return bookAuthor.get();
-    }
-
-    public SimpleStringProperty bookAuthorProperty() {
-        return bookAuthor;
-    }
-
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor.set(bookAuthor);
     }
 
     public String getBookPublishingHouse() {
         return bookPublishingHouse.get();
     }
 
-    public SimpleStringProperty bookPublishingHouseProperty() {
-        return bookPublishingHouse;
-    }
-
-    public void setBookPublishingHouse(String bookPublishingHouse) {
-        this.bookPublishingHouse.set(bookPublishingHouse);
-    }
-
     public String getBookYear() {
         return bookYear.get();
-    }
-
-    public SimpleStringProperty bookYearProperty() {
-        return bookYear;
-    }
-
-    public void setBookYear(String bookYear) {
-        this.bookYear.set(bookYear);
     }
 
     public String getDonorFirstName() {
         return donorFirstName.get();
     }
 
-    public SimpleStringProperty donorFirstNameProperty() {
-        return donorFirstName;
-    }
-
-    public void setDonorFirstName(String donorFirstName) {
-        this.donorFirstName.set(donorFirstName);
-    }
-
     public String getDonorLastName() {
         return donorLastName.get();
-    }
-
-    public SimpleStringProperty donorLastNameProperty() {
-        return donorLastName;
-    }
-
-    public void setDonorLastName(String donorLastName) {
-        this.donorLastName.set(donorLastName);
     }
 
     public String getDonorEmail() {
         return donorEmail.get();
     }
 
-    public SimpleStringProperty donorEmailProperty() {
-        return donorEmail;
-    }
-
-    public void setDonorEmail(String donorEmail) {
-        this.donorEmail.set(donorEmail);
-    }
-
     public String getDonorPhoneNumber() {
         return donorPhoneNumber.get();
-    }
-
-    public SimpleStringProperty donorPhoneNumberProperty() {
-        return donorPhoneNumber;
-    }
-
-    public void setDonorPhoneNumber(String donorPhoneNumber) {
-        this.donorPhoneNumber.set(donorPhoneNumber);
-    }
-
-    public Donation getDonation(){
-        return this;
     }
 
     public boolean equals(Object d){
