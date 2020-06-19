@@ -1,12 +1,12 @@
-package org.fis.student.controllers;
-
+package org.fis.student.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import org.fis.student.*;
-import org.fis.student.services.OrderService;
+import org.fis.student.Book;
+import org.fis.student.Cart;
+import org.fis.student.Client;
+import org.fis.student.Order;
+import org.fis.student.controllers.manageOrderController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,30 +16,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PlaceOrderFormController {
-    @FXML
-    public TextField firstName, lastName, address, phoneNumber, city;
-
-
-    public Order o;
-    public  Cart c;
-
-    public Dialog d;
-
-    public void getCartFromController1(Cart cart){
-        c=new Cart(cart.getBooks());
-        c.setTotal(cart.getTotal());
-    }
-
-
-   /** public void writeNewOrder(Order newOrder) throws IOException, ParseException {
+public class OrderService {
+    public static void writeNewOrder(Order newOrder, String file1) throws IOException, ParseException {
 
         ObservableList<Order> OrderList = FXCollections.observableArrayList();
-        OrderList = manageOrderController.ReadOrder();
+        OrderList =ReadOrder(file1);
 
         OrderList.add(newOrder);
 
-        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
+        FileWriter file = new FileWriter(file1);
 
 
         JSONArray all_orders = new JSONArray();
@@ -73,37 +58,33 @@ public class PlaceOrderFormController {
             all_orders.add(OrderDetails);
         }
 
-            file.write(all_orders.toJSONString());
-            file.flush();
+        file.write(all_orders.toJSONString());
+        file.flush();
 
 
-    }**/
+    }
 
+    public static ObservableList<Order> ReadOrder(String file) throws IOException, ParseException {
+        ObservableList<Order> orders=FXCollections.observableArrayList();
+        JSONParser jsonParser=new JSONParser();
+        FileReader reader=new FileReader(file);
+        Object obj=jsonParser.parse(reader);
+        JSONArray orderList = (JSONArray)obj;
 
-    @FXML
-    public void PlaceOrder(){
-        if(firstName.getText().isEmpty() || lastName.getText().isEmpty() ||
-                address.getText().isEmpty() || phoneNumber.getText().isEmpty() ||
-                city.getText().isEmpty()) {
-            d = new Alert(Alert.AlertType.INFORMATION, "Form Error! None of these fields should be empty.");
-            d.show();
-            return;
-        }
-
-        else{
-            Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());
-            o=new Order(c, cl);
-            try {
-                OrderService.writeNewOrder(o, "../AntiqueStore/src/main/resources/orders.json");
-            }catch(IOException e){
-                e.printStackTrace();
-            }catch(ParseException e1){
-                e1.printStackTrace();
+        for(Object order : orderList){
+            JSONObject o = (JSONObject)order;
+            Client c=new Client(o.get("firstName").toString(), o.get("lastName").toString(),o.get("Address").toString(), o.get("phoneNumber").toString(), o.get("City").toString());
+            JSONArray Books=(JSONArray)o.get("Books");
+            ObservableList<Book> bookList=FXCollections.observableArrayList();
+            for(Object book : Books){
+                JSONObject b = (JSONObject)book;
+                Book B=new Book(b.get("Title").toString(), b.get("Author").toString(), b.get("PublishingHouse").toString(), b.get("Year").toString(), b.get("Price").toString(), b.get("Quantity").toString());
+                bookList.add(B);
             }
-
-            d= new Alert(Alert.AlertType.INFORMATION, "Your order was submitted!");
-            d.show();
-            return ;
+            Order O=new Order(new Cart(bookList), c);
+            O.getCart().setTotal(o.get("Total").toString());
+            orders.add(O);
         }
+        return orders;
     }
 }
