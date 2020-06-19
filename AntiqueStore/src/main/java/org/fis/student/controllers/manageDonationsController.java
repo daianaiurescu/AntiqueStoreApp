@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.fis.student.Book;
 import org.fis.student.Donation;
+import org.fis.student.services.DonationService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,6 +29,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static org.fis.student.services.DonationService.readDonationsFromFile;
+import static org.fis.student.services.DonationService.writeDonation;
 
 public class manageDonationsController {
 
@@ -64,6 +68,10 @@ public class manageDonationsController {
     @FXML
     private Button goBackButton;
 
+    public static ObservableList<Donation> donations;
+
+    public String fileName = "../AntiqueStore/src/main/resources/donations.json";
+
     @FXML
     public void initialize(){
         titleColumn1.setCellValueFactory(new PropertyValueFactory<Donation, String>("bookTitle"));
@@ -77,7 +85,7 @@ public class manageDonationsController {
         phoneColumn1.setCellValueFactory(new PropertyValueFactory<Donation, String>("donorPhoneNumber"));
 
         try {
-            tableView1.setItems(readDonationsFromFile());
+            tableView1.setItems(readDonationsFromFile(fileName));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -86,28 +94,7 @@ public class manageDonationsController {
     }
 
 
-    public static ObservableList<Donation> readDonationsFromFile() throws IOException, ParseException {
-        ObservableList<Donation> donations = FXCollections.observableArrayList();
 
-        JSONParser parser = new JSONParser();
-        FileReader reader = new FileReader("../AntiqueStore/src/main/resources/donations.json");
-
-        Object obj = parser.parse(reader);
-        JSONArray donationList = (JSONArray)obj;
-
-        for(Object d : donationList){
-            JSONObject o = (JSONObject)d;
-            Donation don = new Donation(o.get("bookTitle").toString(), o.get("bookAuthor").toString(), o.get("bookPublishingHouse").toString(),
-                    o.get("bookYearOfPublishing").toString(),
-                    o.get("donorFirstName").toString(),
-                    o.get("donorLastName").toString(),
-                    o.get("donorEmail").toString(),
-                    o.get("donorPhoneNumber").toString());
-            donations.add(don);
-            //System.out.println(don.toString());
-        }
-        return donations;
-    }
 
     public void goBack() {
         try {
@@ -125,7 +112,7 @@ public class manageDonationsController {
 
     @FXML
     public void handleResolvedButtonAction() throws IOException, ParseException{
-        ObservableList<Donation> donations = readDonationsFromFile();
+        ObservableList<Donation> donations = readDonationsFromFile(fileName);
         Donation d = tableView1.getSelectionModel().getSelectedItem();
         Donation aux1 = null;
         for(Donation o: donations){
@@ -138,34 +125,7 @@ public class manageDonationsController {
        /* for(Donation o : donations){
             System.out.println(o.getBookTitle());
         }*/
-
-
-
-        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/donations.json");
-
-
-        JSONArray updatedDonations = new JSONArray();
-
-
-        for (Donation aux: donations) {
-            JSONObject DonationDetails = new JSONObject();
-
-            DonationDetails.put("bookTitle", aux.getBookTitle());
-            DonationDetails.put("bookAuthor", aux.getBookAuthor());
-            DonationDetails.put("bookPublishingHouse", aux.getBookPublishingHouse());
-            DonationDetails.put("bookYear", aux.getBookYear());
-            DonationDetails.put("donorFirstName", aux.getDonorFirstName());
-            DonationDetails.put("donorLastName", aux.getDonorLastName());
-            DonationDetails.put("donorEmail", aux.getDonorEmail());
-            DonationDetails.put("donorPhoneNumber", aux.getDonorPhoneNumber());
-
-
-
-            updatedDonations.add(DonationDetails);
-        }
-
-        file.write(updatedDonations.toJSONString());
-        file.flush();
+        writeDonation(fileName, donations);
 
         this.initialize();
 
