@@ -40,28 +40,28 @@ public class donateFormController{
     private URL location;
 
     @FXML
-    private TextField userLastNameField;
+    public TextField userLastNameField;
 
     @FXML
-    private TextField userFirstNameField;
+    public TextField userFirstNameField;
 
     @FXML
-    private TextField userEmailField;
+    public TextField userEmailField;
 
     @FXML
-    private TextField userNumberField;
+    public TextField userNumberField;
 
     @FXML
-    private TextField bookTitleField;
+    public TextField bookTitleField;
 
     @FXML
-    private TextField authorNameField;
+    public TextField authorNameField;
 
     @FXML
-    private TextField publishingHouseField;
+    public TextField publishingHouseField;
 
     @FXML
-    private TextField publishingYearField;
+    public TextField publishingYearField;
     @FXML
     private Button goback;
 
@@ -70,15 +70,14 @@ public class donateFormController{
 
     public String fileName = "../AntiqueStore/src/main/resources/donations.json";
 
+    public Dialog d;
 
     @FXML
     void initialize() {
     }
 
-    @FXML private Text actiontarget;
 
-    public void handleSubmitButtonAction(ActionEvent event) throws IOException {
-        Dialog d;
+    public void handleSubmitButtonAction() throws IOException {
         if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||
                 userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||
         bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||

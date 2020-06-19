@@ -1,4 +1,4 @@
-package DonationServiceTest;
+package Services;
 
 import javafx.collections.ObservableList;
 import org.fis.student.Donation;

@@ -41,9 +41,7 @@ public class DonationService {
     public static void writeDonation(String fileName, ObservableList<Donation> donationList) throws IOException {
         FileWriter file = new FileWriter(fileName);
 
-
         JSONArray updatedDonations = new JSONArray();
-
 
         for (Donation aux: donationList) {
             JSONObject DonationDetails = new JSONObject();
