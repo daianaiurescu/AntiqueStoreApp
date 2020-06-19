@@ -29,16 +29,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static org.fis.student.services.BookService.readFromFile;
+
 public class viewBooksController implements Initializable {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button addBookToCart;
 
     @FXML
     private TableView<Book> tableView;
@@ -64,6 +57,8 @@ public class viewBooksController implements Initializable {
     @FXML
     private Button cart;
 
+    public String fileName = "../AntiqueStore/src/main/resources/books.json";
+
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         //set up the columns in the table
@@ -76,7 +71,7 @@ public class viewBooksController implements Initializable {
         tableView.setEditable(true);
 
         try {
-            tableView.setItems(readFromFile());
+            tableView.setItems(readFromFile(fileName));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -94,23 +89,6 @@ public class viewBooksController implements Initializable {
         return books;
     }*/
 
-    public static ObservableList<Book> readFromFile() throws IOException, ParseException {
-        ObservableList<Book> books = FXCollections.observableArrayList();
-        JSONParser jsonParser = new JSONParser();
-        FileReader reader = new FileReader("../AntiqueStore/src/main/resources/books.json");
-        Object obj = jsonParser.parse(reader);
-
-        JSONArray bookList = (JSONArray) obj;
-
-        for (Object book : bookList) {
-            JSONObject o = (JSONObject) book;
-            Book b = new Book(o.get("title").toString(), o.get("author").toString(), o.get("publishingHouse").toString(), o.get("year").toString(),
-                    o.get("price").toString(), o.get("quantity").toString());
-            books.add(b);
-        }
-        return books;
-
-    }
 
 
     //For the cart
