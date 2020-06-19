@@ -31,36 +31,42 @@ import java.io.IOException;
 
 import static org.fis.student.services.BookService.readFromFile;
 
-public class viewBooksController implements Initializable {
+public class viewBooksController {
 
     @FXML
-    private TableView<Book> tableView;
+    public TableView<Book> tableView;
 
     @FXML
-    private TableColumn<Book, String> titleColumn;
+    public
+    TableColumn<Book, String> titleColumn;
 
     @FXML
-    private TableColumn<Book, String> authorColumn;
+    public
+    TableColumn<Book, String> authorColumn;
 
     @FXML
-    private TableColumn<Book, String> publishingHouseColumn;
+    public
+    TableColumn<Book, String> publishingHouseColumn;
 
     @FXML
-    private TableColumn<Book, String> yearColumn;
+    public
+    TableColumn<Book, String> yearColumn;
 
     @FXML
-    private TableColumn<Book, String> priceColumn;
+    public
+    TableColumn<Book, String> priceColumn;
 
     @FXML
-    private TableColumn<Book, String> quantityColumn;
+    public
+    TableColumn<Book, String> quantityColumn;
 
     @FXML
-    private Button cart;
+    Button cart;
 
     public String fileName = "../AntiqueStore/src/main/resources/books.json";
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
         //set up the columns in the table
         titleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
@@ -89,13 +95,11 @@ public class viewBooksController implements Initializable {
         return books;
     }*/
 
-
-
     //For the cart
     public ObservableList<Book> selectedBooks = FXCollections.observableArrayList();
 
     @FXML
-    public void AddBook(ActionEvent event) {
+    public void AddBook() {
         ObservableList<Book> books = tableView.getSelectionModel().getSelectedItems();
         setSelectedBooks(books);
         Dialog d;

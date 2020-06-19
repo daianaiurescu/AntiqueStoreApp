@@ -82,9 +82,9 @@ public class DonateFormControllerTest extends ApplicationTest {
 
     @Test
     public void testHandleSubmitButtonAction() throws IOException {
-       /* controller.handleSubmitButtonAction();
+       controller.handleSubmitButtonAction();
         String message = controller.d.getContentText();
 
-        assertEquals("Donation submitted.", message);*/
+        assertEquals("Donation submitted.", message);
     }
 }
