@@ -1,51 +1,78 @@
 package CartControllerTest;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.fis.student.Book;
 import org.fis.student.Cart;
 import org.fis.student.controllers.cartController;
+import org.junit.Before;
+import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
 
-import java.lang.reflect.Field;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class CartControllerTest extends TestCase {
+public class CartControllerTest extends ApplicationTest {
 
-    public CartControllerTest(String s){super(s);}
+    private cartController controller;
+    private static final ObservableList<Book> books=FXCollections.observableArrayList();
+    private static final Cart C=new Cart(books);
 
-    private ObservableList<Book> books= FXCollections.observableArrayList();
-    private ObservableList<Book> books1= FXCollections.observableArrayList();
-    private final Cart c=new Cart(books);
-    private final Cart c1=new Cart(books1);
-    private final cartController cc=new cartController();
+    @Before
+    public void setUp(){
+        controller=new cartController();
+        controller.selectedBooks=FXCollections.observableArrayList();
+        ObservableList<Book> books=FXCollections.observableArrayList();
+        books.add(new Book("t", "a", "p", "1900", "10", "12"));
+        controller.c=new Cart(books);
 
-    protected void setUp(){
-        books.add(new Book("title1", "author1", "ph1", "2000", "10.5", "10"));
-        books1.add(new Book("title2", "author2", "ph2", "1989", "12", "15"));
+        controller.selectedBooks=C.getBooks();
+        controller.c=C;
+        C.setTotal("120.0");
+        C.setBooks(books);
 
+        controller.tableView=new TableView<>();
+        controller.priceColumn=new TableColumn<>();
+        controller.yearColumn=new TableColumn<>();
+        controller.quantityColumn=new TableColumn<>();
+        controller.titleColumn=new TableColumn<>();
+        controller.authorColumn=new TableColumn<>();
+        controller.publishingHouseColumn=new TableColumn<>();
+        controller.total=new Label();
+
+        controller.tableView.setItems(books);
+
+        controller.initialize();
     }
 
-    protected void tearDown(){
-        books=null;
+    @Test
+    public void testTotal(){
+        Double sum=0.0;
+            sum+=    controller.total();
+       assertEquals("120.0", sum.toString());
     }
 
-   public void testGetSelectedBooks() throws NoSuchFieldException, IllegalAccessException{
-       final Field field=cc.getClass().getDeclaredField("c");
-       field.setAccessible(true);
-       field.set(cc, c);
-       final ObservableList<Book> result=c.getBooks();
-       Assert.assertEquals(result, books);
-
-       Book B=new Book("title", "author", "ph", "1900", "30", "2");
-       c1.getBooks().add(B);
-
-       final Field field1=cc.getClass().getDeclaredField("c");
-       field1.setAccessible(true);
-       field1.set(cc, c1);
-       final ObservableList<Book> result1=c1.getBooks();
-       Assert.assertEquals(result1, books1);
+    @Test
+   public void testGetSelectedBooksFromController1(){
+            ObservableList<Book> books1=FXCollections.observableArrayList();
+            books1=controller.getSelectedBooksFromController1(books);
+            books.add(new Book("t", "a", "p", "1900", "10", "12"));
+            assertEquals(books1, books);
+    }
 
 
+    @Test
+    public void testInitialize(){
+        controller.initialize();
+        assertNotNull(controller.tableView);
     }
 }

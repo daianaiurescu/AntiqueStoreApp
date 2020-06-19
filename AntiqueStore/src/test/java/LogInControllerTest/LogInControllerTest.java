@@ -46,9 +46,12 @@ public class LogInControllerTest extends ApplicationTest {
         byte[] passBytes=test_password.getBytes(StandardCharsets.UTF_8);
         String encodedPassword = Base64.getEncoder().encodeToString(passBytes);
         assertNotSame(test_password, encodedPassword);
-
-        //controller.LogIn();
-
+       // controller.LogIn();
     }
+
+    /**@Test
+    public void testDonate(){
+        controller.Donate();
+    }**/
 
 }

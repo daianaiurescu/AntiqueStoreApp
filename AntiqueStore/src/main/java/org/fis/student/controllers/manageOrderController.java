@@ -30,24 +30,27 @@ import java.io.IOException;
 
 import static javafx.fxml.FXMLLoader.load;
 import static org.fis.student.services.OrderService.ReadOrder;
+import static org.fis.student.services.OrderService.writeNewOrder;
 
 
 public class manageOrderController {
 
-   private ObservableList<Book> dataTable2;
+   public ObservableList<Book> dataTable2;
 
     @FXML
-    private TableView<Client> table1;
+    public TableView<Client> table1;
     @FXML
-    private TableView<Book> table2;
+    public TableView<Book> table2;
     @FXML
-    private TableColumn<Client,String> FirstName, LastName, PhoneNumber, City, Address;
+    public TableColumn<Client,String> FirstName, LastName, PhoneNumber, City, Address;
     @FXML
-    private TableColumn<Book,String> Title, Author, PH, Quantity, Price;
+    public TableColumn<Book,String> Title, Author, PH, Quantity, Price;
     @FXML
-    private Button Accept, Decline, GoBack;
+    public Button Accept, Decline, GoBack;
     @FXML
-    private Label Total;
+    public Label Total;
+
+    public Dialog d;
 
     @FXML
    public void initialize(){
@@ -59,7 +62,7 @@ public class manageOrderController {
         Address.setCellValueFactory(new PropertyValueFactory<Client, String>("Address"));
 
         try {
-            table1.setItems(getClients());
+            table1.setItems(getClients("../AntiqueStore/src/main/resources/orders.json"));
         }catch(IOException e){
             e.printStackTrace();
         }catch(ParseException e){
@@ -87,16 +90,16 @@ public class manageOrderController {
 
        for(Client client : table1.getSelectionModel().getSelectedItems()){
            dataTable2.clear();
-           dataTable2=getOrderedBooks(client);
+           dataTable2=getOrderedBooks(client, "../AntiqueStore/src/main/resources/orders.json");
        }
        table2.setItems(dataTable2);
     }
 
-    private void setTotal() throws IOException, ParseException{
+    public void setTotal() throws IOException, ParseException{
         Total.setText("0.0");
         String total="0.0";
         for(Client client:table1.getSelectionModel().getSelectedItems()){
-            total=getTotal(client);
+            total=getTotal(client, "../AntiqueStore/src/main/resources/orders.json");
         }
         Total.setText(total);
     }
@@ -127,21 +130,21 @@ public class manageOrderController {
   }**/
 
 
-   public ObservableList<Client> getClients() throws IOException, ParseException{
+   public ObservableList<Client> getClients(String file) throws IOException, ParseException{
         ObservableList<Client> clients=FXCollections.observableArrayList();
-        ObservableList<Order> Orders=ReadOrder("../AntiqueStore/src/main/resources/orders.json");
+        ObservableList<Order> Orders=ReadOrder(file);
             for(Order o : Orders){
                 clients.add(o.getClient());
             }
         return clients;
    }
 
-   public static ObservableList<Book> getOrderedBooks(Client c) throws IOException, ParseException{
+   public static ObservableList<Book> getOrderedBooks(Client c, String file) throws IOException, ParseException{
 
         ObservableList<Book> orderedBooks=FXCollections.observableArrayList();
         orderedBooks.clear();
        JSONParser jsonParser=new JSONParser();
-       FileReader reader=new FileReader("../AntiqueStore/src/main/resources/orders.json");
+       FileReader reader=new FileReader(file);
        Object obj=jsonParser.parse(reader);
 
        JSONArray orderList=(JSONArray)obj;
@@ -161,9 +164,9 @@ public class manageOrderController {
 
         return orderedBooks;
    }
-  public String getTotal(Client c) throws  IOException, ParseException{
+  public String getTotal(Client c, String file) throws  IOException, ParseException{
        JSONParser jsonParser=new JSONParser();
-       FileReader reader=new FileReader("../AntiqueStore/src/main/resources/orders.json");
+       FileReader reader=new FileReader(file);
        Object obj=jsonParser.parse(reader);
        JSONArray orderList=(JSONArray)obj;
        String total="0.0";
@@ -192,8 +195,8 @@ public class manageOrderController {
 
    @FXML
     public void AcceptOrder(){
-        Dialog d;
        d = new Alert(Alert.AlertType.INFORMATION, "Order accepted! Prepare the Package for delivery!");
+       d.setContentText("Order accepted! Prepare the Package for delivery!");
        d.show();
        return;
    }
@@ -212,7 +215,7 @@ public class manageOrderController {
             }
             orders.remove(aux1);
 
-       FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
+            FileWriter file1 = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
 
 
        JSONArray all_orders = new JSONArray();
@@ -246,16 +249,13 @@ public class manageOrderController {
            all_orders.add(OrderDetails);
        }
 
-       file.write(all_orders.toJSONString());
-       file.flush();
+       file1.write(all_orders.toJSONString());
+       file1.flush();
 
        Dialog d;
        d = new Alert(Alert.AlertType.INFORMATION, "Order deleted!");
        d.show();
 
        this.initialize();
-
-
    }
-
 }
