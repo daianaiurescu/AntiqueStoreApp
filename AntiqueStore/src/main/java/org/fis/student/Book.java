@@ -1,21 +1,18 @@
 package org.fis.student;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 
 public class Book {
     private SimpleStringProperty title, author, publishingHouse;
-    private SimpleStringProperty year, quantity;
-    private SimpleStringProperty price;
+    private SimpleStringProperty year, price;
+    private String quantity;
 
     public Book(String title, String author, String publishingHouse, String year, String price, String quantity){
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
         this.publishingHouse = new SimpleStringProperty(publishingHouse);
         this.year = new SimpleStringProperty(year);
-        this.quantity = new SimpleStringProperty(quantity);
+        this.quantity = quantity;
         this.price = new SimpleStringProperty(price);
     }
 
@@ -36,37 +33,17 @@ public class Book {
     }
 
     public String getQuantity(){
-        return quantity.get();
-    }
-
-    public void setTitle(String title){
-        this.title.set(title);
-    }
-
-    public void setAuthor(String author) {
-        this.author.set(author);
-    }
-
-    public void setPublishingHouse(String publishingHouse) {
-        this.publishingHouse.set(publishingHouse);
-    }
-
-    public void setYear(String year){
-        this.year.set(year);
+        return quantity;
     }
 
     public void setQuantity(String quantity){
-        this.quantity.set(quantity);
+        this.quantity = quantity;
     }
-
 
     public String getPrice() {
         return price.get();
     }
 
-    public void setPrice(String price) {
-        this.price.set(price);
-    }
 
     public boolean equals(Object o){
         if(o instanceof Book){

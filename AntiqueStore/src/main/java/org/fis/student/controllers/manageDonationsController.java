@@ -98,8 +98,11 @@ public class manageDonationsController {
         for(Object d : donationList){
             JSONObject o = (JSONObject)d;
             Donation don = new Donation(o.get("bookTitle").toString(), o.get("bookAuthor").toString(), o.get("bookPublishingHouse").toString(),
-                    o.get("bookYear").toString(), o.get("donorFirstName").toString(), o.get("donorLastName").toString(),
-                    o.get("donorEmail").toString(), o.get("donorPhoneNumber").toString());
+                    o.get("bookYearOfPublishing").toString(),
+                    o.get("donorFirstName").toString(),
+                    o.get("donorLastName").toString(),
+                    o.get("donorEmail").toString(),
+                    o.get("donorPhoneNumber").toString());
             donations.add(don);
             //System.out.println(don.toString());
         }

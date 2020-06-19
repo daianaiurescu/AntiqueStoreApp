@@ -29,6 +29,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static javafx.fxml.FXMLLoader.load;
+import static org.fis.student.services.OrderService.ReadOrder;
 
 
 public class manageOrderController {
@@ -101,7 +102,7 @@ public class manageOrderController {
     }
 
 
-  public static ObservableList<Order> ReadOrder() throws IOException, ParseException {
+  /**public static ObservableList<Order> ReadOrder() throws IOException, ParseException {
       ObservableList<Order> orders=FXCollections.observableArrayList();
       JSONParser jsonParser=new JSONParser();
       FileReader reader=new FileReader("../AntiqueStore/src/main/resources/orders.json");
@@ -123,12 +124,12 @@ public class manageOrderController {
           orders.add(O);
       }
       return orders;
-  }
+  }**/
 
 
    public ObservableList<Client> getClients() throws IOException, ParseException{
         ObservableList<Client> clients=FXCollections.observableArrayList();
-        ObservableList<Order> Orders=ReadOrder();
+        ObservableList<Order> Orders=ReadOrder("../AntiqueStore/src/main/resources/orders.json");
             for(Order o : Orders){
                 clients.add(o.getClient());
             }
@@ -201,7 +202,7 @@ public class manageOrderController {
 
    @FXML
     public void DeleteOrder() throws IOException, ParseException{
-            ObservableList<Order> orders=ReadOrder();
+            ObservableList<Order> orders=ReadOrder("../AntiqueStore/src/main/resources/orders.json");
             Client c=table1.getSelectionModel().getSelectedItem();
             Order aux1 = null;
             for(Order o : orders){

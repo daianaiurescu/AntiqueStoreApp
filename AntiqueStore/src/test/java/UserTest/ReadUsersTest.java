@@ -2,10 +2,13 @@ package UserTest;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.fis.student.exception.WrongPasswordException;
+import org.fis.student.user.ReadJsonFile;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.Test;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -114,5 +117,30 @@ public class ReadUsersTest extends TestCase{
         Assert.assertEquals("ross.geller@gmail.com", email);
         Assert.assertEquals("cm9zczEyMw==", password);
         Assert.assertEquals("Client", role);
+    }
+
+    @Test(expected = WrongPasswordException.class)
+    public void testWrongPasswordException() throws Exception {
+        Object user=userList.get(0);
+        JSONObject o=(JSONObject) user;
+        try {
+            ReadJsonFile.Read("password", "mail");
+        }catch(WrongPasswordException e){
+            assertNotSame(o.get("passwordField"), "password");
+        }
+         user=userList.get(1);
+          o=(JSONObject) user;
+        try {
+            ReadJsonFile.Read("password", "mail");
+        }catch(WrongPasswordException e){
+            assertNotSame(o.get("passwordField"), "password");
+        }
+        user=userList.get(2);
+        o=(JSONObject) user;
+        try {
+            ReadJsonFile.Read("password", "mail");
+        }catch(WrongPasswordException e){
+            assertNotSame(o.get("passwordField"), "password");
+        }
     }
 }

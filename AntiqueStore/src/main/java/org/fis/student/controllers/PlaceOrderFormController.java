@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.fis.student.*;
+import org.fis.student.services.OrderService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,11 +18,13 @@ import java.io.IOException;
 
 public class PlaceOrderFormController {
     @FXML
-    private TextField firstName, lastName, address, phoneNumber, city;
+    public TextField firstName, lastName, address, phoneNumber, city;
 
 
-    private Order o;
-    private  Cart c;
+    public Order o;
+    public  Cart c;
+
+    public Dialog d;
 
     public void getCartFromController1(Cart cart){
         c=new Cart(cart.getBooks());
@@ -29,7 +32,7 @@ public class PlaceOrderFormController {
     }
 
 
-    public void writeNewOrder(Order newOrder) throws IOException, ParseException {
+   /** public void writeNewOrder(Order newOrder) throws IOException, ParseException {
 
         ObservableList<Order> OrderList = FXCollections.observableArrayList();
         OrderList = manageOrderController.ReadOrder();
@@ -74,12 +77,11 @@ public class PlaceOrderFormController {
             file.flush();
 
 
-    }
+    }**/
 
 
     @FXML
     public void PlaceOrder(){
-        Dialog d;
         if(firstName.getText().isEmpty() || lastName.getText().isEmpty() ||
                 address.getText().isEmpty() || phoneNumber.getText().isEmpty() ||
                 city.getText().isEmpty()) {
@@ -92,7 +94,7 @@ public class PlaceOrderFormController {
             Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());
             o=new Order(c, cl);
             try {
-                writeNewOrder(o);
+                OrderService.writeNewOrder(o, "../AntiqueStore/src/main/resources/orders.json");
             }catch(IOException e){
                 e.printStackTrace();
             }catch(ParseException e1){

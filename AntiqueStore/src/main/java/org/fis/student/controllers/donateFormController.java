@@ -68,22 +68,13 @@ public class donateFormController{
 
     @FXML
     void initialize() {
-        /*assert userLastNameField != null : "fx:id=\"userLastNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert userFirstNameField != null : "fx:id=\"userFirstNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert userEmailField != null : "fx:id=\"userEmailField\" was not injected: check your FXML file 'Untitled'.";
-        assert userNumberField != null : "fx:id=\"userNumberField\" was not injected: check your FXML file 'Untitled'.";
-        assert bookTitleField != null : "fx:id=\"bookTitleField\" was not injected: check your FXML file 'Untitled'.";
-        assert authorNameField != null : "fx:id=\"authorNameField\" was not injected: check your FXML file 'Untitled'.";
-        assert publishingHouseField != null : "fx:id=\"publishingHouseField\" was not injected: check your FXML file 'Untitled'.";
-        assert publishingYearField != null : "fx:id=\"publishingYearField\" was not injected: check your FXML file 'Untitled'.";*/
-
     }
 
     @FXML private Text actiontarget;
 
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
         Dialog d;
-        if(userFirstNameField.getText().isEmpty() || userFirstNameField.getText().isEmpty() ||
+        if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||
                 userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||
         bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||
                 publishingHouseField.getText().isEmpty() ||  publishingYearField.getText().isEmpty()){
@@ -95,9 +86,10 @@ public class donateFormController{
         else{
             d = new Alert(Alert.AlertType.INFORMATION, "Donation submitted.");
             d.show();
-            Donation newDonation = new Donation(userFirstNameField.getText(), userFirstNameField.getText(),
-                    userEmailField.getText(), userNumberField.getText(), bookTitleField.getText(), authorNameField.getText(),
-                    publishingHouseField.getText(), publishingYearField.getText());
+            Donation newDonation = new Donation(bookTitleField.getText(), authorNameField.getText(),
+                    publishingHouseField.getText(), publishingYearField.getText(),
+                    userFirstNameField.getText(), userLastNameField.getText(),
+                    userEmailField.getText(), userNumberField.getText());
 
             try {
                 writeNewDonation(newDonation);
@@ -108,8 +100,6 @@ public class donateFormController{
             }
 
         }
-
-
 
 
     }
