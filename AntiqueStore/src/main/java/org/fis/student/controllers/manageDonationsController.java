@@ -1,6 +1,7 @@
 package org.fis.student.controllers;
 
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,31 +23,31 @@ import static org.fis.student.services.DonationService.writeDonation;
 public class manageDonationsController {
 
     @FXML
-    private TableView<Donation> tableView1;
+    public TableView<Donation> tableView1;
 
     @FXML
-    private TableColumn<Donation, String> titleColumn1;
+    public TableColumn<Donation, String> titleColumn1;
 
     @FXML
-    private TableColumn<Donation, String> authorColumn1;
+    public TableColumn<Donation, String> authorColumn1;
 
     @FXML
-    private TableColumn<Donation, String>publishingHouseColumn1;
+    public TableColumn<Donation, String>publishingHouseColumn1;
 
     @FXML
-    private TableColumn<Donation, String> yearColumn1;
+    public TableColumn<Donation, String> yearColumn1;
 
     @FXML
-    private TableColumn<Donation, String> firstNameColumn1;
+    public TableColumn<Donation, String> firstNameColumn1;
 
     @FXML
-    private TableColumn<Donation, String> lastNameColumn1;
+    public TableColumn<Donation, String> lastNameColumn1;
 
     @FXML
-    private TableColumn<Donation, String> emailColumn1;
+    public TableColumn<Donation, String> emailColumn1;
 
     @FXML
-    private TableColumn<Donation, String> phoneColumn1;
+    public TableColumn<Donation, String> phoneColumn1;
 
     @FXML
     private Button resolvedButton;
@@ -54,7 +55,7 @@ public class manageDonationsController {
     @FXML
     private Button goBackButton;
 
-    public static ObservableList<Donation> donations;
+    public static ObservableList<Donation> donationList = FXCollections.observableArrayList();
 
     public String fileName = "../AntiqueStore/src/main/resources/donations.json";
 
@@ -98,20 +99,20 @@ public class manageDonationsController {
 
     @FXML
     public void handleResolvedButtonAction() throws IOException, ParseException{
-        ObservableList<Donation> donations = readDonationsFromFile(fileName);
+        donationList = readDonationsFromFile(fileName);
         Donation d = tableView1.getSelectionModel().getSelectedItem();
         Donation aux1 = null;
-        for(Donation o: donations){
+        for(Donation o: donationList){
             if(o.equals(d))
                 aux1 = o;
         }
 
-        donations.remove(aux1);
+        donationList.remove(aux1);
 
        /* for(Donation o : donations){
             System.out.println(o.getBookTitle());
         }*/
-        writeDonation(fileName, donations);
+        writeDonation(fileName, donationList);
 
         this.initialize();
 

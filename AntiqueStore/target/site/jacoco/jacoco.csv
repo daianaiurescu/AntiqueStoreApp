@@ -4,7 +4,7 @@ AntiqueStore,org.fis.student.controllers,cartController,120,116,3,3,27,20,5,5,3,
 AntiqueStore,org.fis.student.controllers,LogInController,156,3,2,0,48,1,3,1,2,1
 AntiqueStore,org.fis.student.controllers,manageOrderController,637,0,24,0,130,0,23,0,11,0
 AntiqueStore,org.fis.student.controllers,WrongPasswordController,35,0,0,0,11,0,2,0,2,0
-AntiqueStore,org.fis.student.controllers,manageDonationsController,149,0,4,0,38,0,6,0,4,0
+AntiqueStore,org.fis.student.controllers,manageDonationsController,41,111,1,3,15,24,2,5,1,4
 AntiqueStore,org.fis.student.controllers,AdminViewController,99,0,0,0,31,0,4,0,4,0
 AntiqueStore,org.fis.student.controllers,PlaceOrderFormController,106,0,10,0,21,0,8,0,3,0
 AntiqueStore,org.fis.student.controllers,viewBooksController,76,103,0,4,23,22,2,6,2,4
