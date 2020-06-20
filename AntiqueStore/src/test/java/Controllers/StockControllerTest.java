@@ -42,6 +42,16 @@ public class StockControllerTest extends ApplicationTest {
 
     @Before
     public void setUp() throws IOException, ParseException {
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            writer.append("[]");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         controller = new stockController();
 
         controller.tableView = new TableView<>();
@@ -58,7 +68,6 @@ public class StockControllerTest extends ApplicationTest {
         controller.yearSpinner = new Spinner<Integer>();
         controller.quantitySpinner = new Spinner<Integer>();
         controller.priceSpinner = new Spinner<Double>();
-
 
         bookList = BookService.readFromFile(fileName);
        bookList.add(new Book("testTitle", "testAuthor", "testPublishing", "testYear",
@@ -98,7 +107,7 @@ public class StockControllerTest extends ApplicationTest {
 
     @Test
     public void deleteBookActionTest() throws IOException, ParseException {
-        Book deletedBook1 = new Book("deleteTitle1", "deleteAuthor1", "deletePublishing1",
+        /*Book deletedBook1 = new Book("deleteTitle1", "deleteAuthor1", "deletePublishing1",
                 "deleteYear1", "deletePrice1", "deleteQuantity1");
         ObservableList<Book> aux = FXCollections.observableArrayList();
         aux.add(deletedBook1);
@@ -110,8 +119,15 @@ public class StockControllerTest extends ApplicationTest {
         controller.handleDeleteBookButtonAction();
         aux = BookService.readFromFile(fileName);
 
-        assertEquals(controller.bookList, aux);
+        assertEquals(controller.bookList, aux);*/
+        controller.bookList.add(new Book("deleteTitle1", "deleteAuthor1", "deletePublishing1",
+                "deleteYear1", "deletePrice1", "deleteQuantity1"));
+        BookService.writeBooks(fileName, controller.bookList);
+        controller.tableView.getSelectionModel().select(controller.bookList.get(0));
+        controller.handleDeleteBookButtonAction();
+        ObservableList<Book> aux = BookService.readFromFile(fileName);
 
+        assertEquals(aux, controller.bookList);
     }
 
 }

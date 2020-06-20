@@ -103,26 +103,25 @@ import static org.fis.student.services.DonationService.writeDonation;
 <span class="nc" id="L103">    }</span>
 
     public void writeNewDonation(Donation newDonation, String fileName) throws IOException, ParseException {
-        //ObservableList&lt;Donation&gt; donationList = FXCollections.observableArrayList();
-<span class="fc" id="L107">        donationList = readDonationsFromFile(fileName);</span>
+<span class="fc" id="L106">        donationList = readDonationsFromFile(fileName);</span>
 
-<span class="fc" id="L109">        donationList.add(newDonation);</span>
-<span class="fc" id="L110">        writeDonation(fileName, donationList);</span>
+<span class="fc" id="L108">        donationList.add(newDonation);</span>
+<span class="fc" id="L109">        writeDonation(fileName, donationList);</span>
 
-<span class="fc" id="L112">    }</span>
+<span class="fc" id="L111">    }</span>
 
     public void GoBack(){
         try {
-<span class="nc" id="L116">            Stage stage = (Stage) goback.getScene().getWindow();</span>
-<span class="nc" id="L117">            stage.setTitle(&quot;Log in&quot;);</span>
-<span class="nc" id="L118">            Parent gobackRoot= FXMLLoader.load(getClass().getClassLoader().getResource(&quot;LogIn.fxml&quot;));</span>
-<span class="nc" id="L119">            Scene scene = new Scene(gobackRoot);</span>
-<span class="nc" id="L120">            stage.setScene(scene);</span>
-<span class="nc" id="L121">            stage.show();</span>
-<span class="nc" id="L122">        } catch (IOException e) {</span>
-<span class="nc" id="L123">            e.printStackTrace();</span>
-<span class="nc" id="L124">        }</span>
-<span class="nc" id="L125">    }</span>
+<span class="nc" id="L115">            Stage stage = (Stage) goback.getScene().getWindow();</span>
+<span class="nc" id="L116">            stage.setTitle(&quot;Log in&quot;);</span>
+<span class="nc" id="L117">            Parent gobackRoot= FXMLLoader.load(getClass().getClassLoader().getResource(&quot;LogIn.fxml&quot;));</span>
+<span class="nc" id="L118">            Scene scene = new Scene(gobackRoot);</span>
+<span class="nc" id="L119">            stage.setScene(scene);</span>
+<span class="nc" id="L120">            stage.show();</span>
+<span class="nc" id="L121">        } catch (IOException e) {</span>
+<span class="nc" id="L122">            e.printStackTrace();</span>
+<span class="nc" id="L123">        }</span>
+<span class="nc" id="L124">    }</span>
 
 
 }
