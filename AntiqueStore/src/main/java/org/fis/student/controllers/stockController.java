@@ -88,10 +88,7 @@ public class stockController {
 
     public String fileName = "../AntiqueStore/src/main/resources/books.json";
 
-
-
-
-   public static ObservableList<Book> bookList = FXCollections.observableArrayList();
+    public static ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -223,8 +220,6 @@ public class stockController {
                 //System.out.println(aux1.toString());
             }
         }
-
-        if(aux1 != null)
             bookList.remove(aux1);
 
         writeBooks(fileName, bookList);

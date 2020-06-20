@@ -65,16 +65,11 @@ public class donateFormController{
     @FXML
     private Button goback;
 
-    @FXML
-    private Button submitButton;
-
     public String fileName = "../AntiqueStore/src/main/resources/donations.json";
 
     public Dialog d;
 
-    @FXML
-    void initialize() {
-    }
+    public static ObservableList<Donation> donationList;
 
 
     public void handleSubmitButtonAction() throws IOException {
@@ -105,11 +100,9 @@ public class donateFormController{
 
         }
 
-
     }
 
     public void writeNewDonation(Donation newDonation, String fileName) throws IOException, ParseException {
-        ObservableList<Donation> donationList = FXCollections.observableArrayList();
         donationList = readDonationsFromFile(fileName);
 
         donationList.add(newDonation);

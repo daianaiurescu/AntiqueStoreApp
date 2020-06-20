@@ -65,70 +65,64 @@ import static org.fis.student.services.DonationService.writeDonation;
     @FXML
     private Button goback;
 
-    @FXML
-    private Button submitButton;
-
-<span class="fc" id="L71">    public String fileName = &quot;../AntiqueStore/src/main/resources/donations.json&quot;;</span>
+<span class="fc" id="L68">    public String fileName = &quot;../AntiqueStore/src/main/resources/donations.json&quot;;</span>
 
     public Dialog d;
 
-    @FXML
-    void initialize() {
-<span class="nc" id="L77">    }</span>
+    public static ObservableList&lt;Donation&gt; donationList;
 
 
     public void handleSubmitButtonAction() throws IOException {
-<span class="nc bnc" id="L81" title="All 4 branches missed.">        if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||</span>
-<span class="nc bnc" id="L82" title="All 4 branches missed.">                userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||</span>
-<span class="nc bnc" id="L83" title="All 4 branches missed.">        bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||</span>
-<span class="nc bnc" id="L84" title="All 4 branches missed.">                publishingHouseField.getText().isEmpty() ||  publishingYearField.getText().isEmpty()){</span>
-<span class="nc" id="L85">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Form Error! None of these fields should be empty.&quot;);</span>
-<span class="nc" id="L86">            d.show();</span>
-<span class="nc" id="L87">            return;</span>
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L77" title="All 4 branches missed.">                userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">        bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L79" title="All 4 branches missed.">                publishingHouseField.getText().isEmpty() ||  publishingYearField.getText().isEmpty()){</span>
+<span class="nc" id="L80">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Form Error! None of these fields should be empty.&quot;);</span>
+<span class="nc" id="L81">            d.show();</span>
+<span class="nc" id="L82">            return;</span>
         }
 
         else{
-<span class="nc" id="L91">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Donation submitted.&quot;);</span>
-<span class="nc" id="L92">            d.show();</span>
-<span class="nc" id="L93">            Donation newDonation = new Donation(bookTitleField.getText(), authorNameField.getText(),</span>
-<span class="nc" id="L94">                    publishingHouseField.getText(), publishingYearField.getText(),</span>
-<span class="nc" id="L95">                    userFirstNameField.getText(), userLastNameField.getText(),</span>
-<span class="nc" id="L96">                    userEmailField.getText(), userNumberField.getText());</span>
+<span class="nc" id="L86">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Donation submitted.&quot;);</span>
+<span class="nc" id="L87">            d.show();</span>
+<span class="nc" id="L88">            Donation newDonation = new Donation(bookTitleField.getText(), authorNameField.getText(),</span>
+<span class="nc" id="L89">                    publishingHouseField.getText(), publishingYearField.getText(),</span>
+<span class="nc" id="L90">                    userFirstNameField.getText(), userLastNameField.getText(),</span>
+<span class="nc" id="L91">                    userEmailField.getText(), userNumberField.getText());</span>
 
             try {
-<span class="nc" id="L99">                writeNewDonation(newDonation, fileName);</span>
-<span class="nc" id="L100">            } catch (IOException e) {</span>
-<span class="nc" id="L101">                e.printStackTrace();</span>
-<span class="nc" id="L102">            } catch (ParseException e) {</span>
-<span class="nc" id="L103">                e.printStackTrace();</span>
-<span class="nc" id="L104">            }</span>
+<span class="nc" id="L94">                writeNewDonation(newDonation, fileName);</span>
+<span class="nc" id="L95">            } catch (IOException e) {</span>
+<span class="nc" id="L96">                e.printStackTrace();</span>
+<span class="nc" id="L97">            } catch (ParseException e) {</span>
+<span class="nc" id="L98">                e.printStackTrace();</span>
+<span class="nc" id="L99">            }</span>
 
         }
 
-
-<span class="nc" id="L109">    }</span>
+<span class="nc" id="L103">    }</span>
 
     public void writeNewDonation(Donation newDonation, String fileName) throws IOException, ParseException {
-<span class="nc" id="L112">        ObservableList&lt;Donation&gt; donationList = FXCollections.observableArrayList();</span>
-<span class="nc" id="L113">        donationList = readDonationsFromFile(fileName);</span>
+        //ObservableList&lt;Donation&gt; donationList = FXCollections.observableArrayList();
+<span class="fc" id="L107">        donationList = readDonationsFromFile(fileName);</span>
 
-<span class="nc" id="L115">        donationList.add(newDonation);</span>
-<span class="nc" id="L116">        writeDonation(fileName, donationList);</span>
+<span class="fc" id="L109">        donationList.add(newDonation);</span>
+<span class="fc" id="L110">        writeDonation(fileName, donationList);</span>
 
-<span class="nc" id="L118">    }</span>
+<span class="fc" id="L112">    }</span>
 
     public void GoBack(){
         try {
-<span class="nc" id="L122">            Stage stage = (Stage) goback.getScene().getWindow();</span>
-<span class="nc" id="L123">            stage.setTitle(&quot;Log in&quot;);</span>
-<span class="nc" id="L124">            Parent gobackRoot= FXMLLoader.load(getClass().getClassLoader().getResource(&quot;LogIn.fxml&quot;));</span>
-<span class="nc" id="L125">            Scene scene = new Scene(gobackRoot);</span>
-<span class="nc" id="L126">            stage.setScene(scene);</span>
-<span class="nc" id="L127">            stage.show();</span>
-<span class="nc" id="L128">        } catch (IOException e) {</span>
-<span class="nc" id="L129">            e.printStackTrace();</span>
-<span class="nc" id="L130">        }</span>
-<span class="nc" id="L131">    }</span>
+<span class="nc" id="L116">            Stage stage = (Stage) goback.getScene().getWindow();</span>
+<span class="nc" id="L117">            stage.setTitle(&quot;Log in&quot;);</span>
+<span class="nc" id="L118">            Parent gobackRoot= FXMLLoader.load(getClass().getClassLoader().getResource(&quot;LogIn.fxml&quot;));</span>
+<span class="nc" id="L119">            Scene scene = new Scene(gobackRoot);</span>
+<span class="nc" id="L120">            stage.setScene(scene);</span>
+<span class="nc" id="L121">            stage.show();</span>
+<span class="nc" id="L122">        } catch (IOException e) {</span>
+<span class="nc" id="L123">            e.printStackTrace();</span>
+<span class="nc" id="L124">        }</span>
+<span class="nc" id="L125">    }</span>
 
 
 }

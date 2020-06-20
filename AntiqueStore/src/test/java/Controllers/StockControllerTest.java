@@ -1,4 +1,4 @@
-package StockControllerTest;
+package Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -96,21 +96,22 @@ public class StockControllerTest extends ApplicationTest {
         assertEquals(bookList, readBooks);
     }
 
-    /*@Test
+    @Test
     public void deleteBookActionTest() throws IOException, ParseException {
-        controller.deletedBook = new Book("deleteTitle", "deleteAuthor", "deletePublishing",
-                "deleteYear", "deletePrice", "deleteQuantity");
+        Book deletedBook1 = new Book("deleteTitle1", "deleteAuthor1", "deletePublishing1",
+                "deleteYear1", "deletePrice1", "deleteQuantity1");
+        ObservableList<Book> aux = FXCollections.observableArrayList();
+        aux.add(deletedBook1);
+        BookService.writeBooks(fileName, aux);
 
-        ObservableList<Book> books = FXCollections.observableArrayList();
-        books.add(controller.deletedBook);
-        BookService.writeBooks(fileName, books);
-        bookList = BookService.readFromFile(fileName);
+        controller.bookList = BookService.readFromFile(fileName);
 
+        controller.tableView.getSelectionModel().select(controller.bookList.get(0));
         controller.handleDeleteBookButtonAction();
+        aux = BookService.readFromFile(fileName);
 
-        //bookList.remove(controller.deletedBook);
-        assertEquals(bookList, books);
+        assertEquals(controller.bookList, aux);
 
-    }*/
+    }
 
 }

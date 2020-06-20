@@ -24,17 +24,17 @@ import java.io.IOException;
 <span class="fc" id="L24">        Object obj = parser.parse(reader);</span>
 <span class="fc" id="L25">        JSONArray donationList = (JSONArray)obj;</span>
 
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        for(Object d : donationList){</span>
-<span class="nc" id="L28">            JSONObject o = (JSONObject)d;</span>
-<span class="nc" id="L29">            Donation don = new Donation(o.get(&quot;bookTitle&quot;).toString(), o.get(&quot;bookAuthor&quot;).toString(), o.get(&quot;bookPublishingHouse&quot;).toString(),</span>
-<span class="nc" id="L30">                    o.get(&quot;bookYear&quot;).toString(),</span>
-<span class="nc" id="L31">                    o.get(&quot;donorFirstName&quot;).toString(),</span>
-<span class="nc" id="L32">                    o.get(&quot;donorLastName&quot;).toString(),</span>
-<span class="nc" id="L33">                    o.get(&quot;donorEmail&quot;).toString(),</span>
-<span class="nc" id="L34">                    o.get(&quot;donorPhoneNumber&quot;).toString());</span>
-<span class="nc" id="L35">            donations.add(don);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for(Object d : donationList){</span>
+<span class="fc" id="L28">            JSONObject o = (JSONObject)d;</span>
+<span class="fc" id="L29">            Donation don = new Donation(o.get(&quot;bookTitle&quot;).toString(), o.get(&quot;bookAuthor&quot;).toString(), o.get(&quot;bookPublishingHouse&quot;).toString(),</span>
+<span class="fc" id="L30">                    o.get(&quot;bookYear&quot;).toString(),</span>
+<span class="fc" id="L31">                    o.get(&quot;donorFirstName&quot;).toString(),</span>
+<span class="fc" id="L32">                    o.get(&quot;donorLastName&quot;).toString(),</span>
+<span class="fc" id="L33">                    o.get(&quot;donorEmail&quot;).toString(),</span>
+<span class="fc" id="L34">                    o.get(&quot;donorPhoneNumber&quot;).toString());</span>
+<span class="fc" id="L35">            donations.add(don);</span>
             //System.out.println(don.toString());
-<span class="nc" id="L37">        }</span>
+<span class="fc" id="L37">        }</span>
 <span class="fc" id="L38">        return donations;</span>
     }
 

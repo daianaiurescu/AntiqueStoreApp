@@ -1,6 +1,6 @@
 package CartControllerTest;
 
-import BookClassTest.BookTest;
+import Classes.BookTest;
 import CartClassTest.CartTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;

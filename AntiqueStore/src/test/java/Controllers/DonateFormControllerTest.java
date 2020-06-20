@@ -1,4 +1,4 @@
-package DonateFormControllerTest;
+package Controllers;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -6,6 +6,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import org.fis.student.Donation;
 import org.fis.student.controllers.donateFormController;
+import org.fis.student.services.DonationService;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -81,10 +82,22 @@ public class DonateFormControllerTest extends ApplicationTest {
     }
 
     @Test
+    public void writeNewDonationTest() throws IOException, ParseException {
+        Donation newDonation = new Donation("testTitle1", "testAuthor1", "testPublishingHouse1",
+                "testYear1", "testFirstName1", "testLastName1", "testEmail1",
+                "testPhone1");
+        ObservableList<Donation> aux = DonationService.readDonationsFromFile(fileName);
+        aux.add(newDonation);
+        controller.writeNewDonation(newDonation, fileName);
+        donationList = DonationService.readDonationsFromFile(fileName);
+        assertEquals(aux, donationList);
+    }
+
+    /*@Test
     public void testHandleSubmitButtonAction() throws IOException {
-/*       controller.handleSubmitButtonAction();
+        controller.handleSubmitButtonAction();
         String message = controller.d.getContentText();
 
-        assertEquals("Donation submitted.", message);*/
-    }
+        assertEquals("Donation submitted.", message);
+    }*/
 }

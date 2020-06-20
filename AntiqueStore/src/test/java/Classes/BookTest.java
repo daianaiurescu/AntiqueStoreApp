@@ -1,4 +1,4 @@
-package BookClassTest;
+package Classes;
 
 import javafx.beans.property.SimpleStringProperty;
 import junit.framework.Assert;

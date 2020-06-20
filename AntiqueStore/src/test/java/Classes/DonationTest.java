@@ -1,4 +1,4 @@
-package DonationClassTest;
+package Classes;
 
 import javafx.beans.property.SimpleStringProperty;
 import org.fis.student.Donation;
