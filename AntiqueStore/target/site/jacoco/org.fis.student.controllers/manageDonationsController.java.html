@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>manageDonationsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student.controllers</a> &gt; <span class="el_source">manageDonationsController.java</span></div><h1>manageDonationsController.java</h1><pre class="source lang-java linenums">package org.fis.student.controllers;
+
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import org.fis.student.Donation;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
+import static org.fis.student.services.DonationService.readDonationsFromFile;
+import static org.fis.student.services.DonationService.writeDonation;
+
+<span class="nc" id="L22">public class manageDonationsController {</span>
+
+    @FXML
+    private TableView&lt;Donation&gt; tableView1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; titleColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; authorColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt;publishingHouseColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; yearColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; firstNameColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; lastNameColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; emailColumn1;
+
+    @FXML
+    private TableColumn&lt;Donation, String&gt; phoneColumn1;
+
+    @FXML
+    private Button resolvedButton;
+
+    @FXML
+    private Button goBackButton;
+
+    public static ObservableList&lt;Donation&gt; donations;
+
+<span class="nc" id="L59">    public String fileName = &quot;../AntiqueStore/src/main/resources/donations.json&quot;;</span>
+
+    @FXML
+    public void initialize(){
+<span class="nc" id="L63">        titleColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;bookTitle&quot;));</span>
+<span class="nc" id="L64">        authorColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;bookAuthor&quot;));</span>
+<span class="nc" id="L65">        publishingHouseColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;bookPublishingHouse&quot;));</span>
+<span class="nc" id="L66">        yearColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;bookYear&quot;));</span>
+
+<span class="nc" id="L68">        firstNameColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;donorFirstName&quot;));</span>
+<span class="nc" id="L69">        lastNameColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;donorLastName&quot;));</span>
+<span class="nc" id="L70">        emailColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;donorEmail&quot;));</span>
+<span class="nc" id="L71">        phoneColumn1.setCellValueFactory(new PropertyValueFactory&lt;Donation, String&gt;(&quot;donorPhoneNumber&quot;));</span>
+
+        try {
+<span class="nc" id="L74">            tableView1.setItems(readDonationsFromFile(fileName));</span>
+<span class="nc" id="L75">        } catch (IOException e) {</span>
+<span class="nc" id="L76">            e.printStackTrace();</span>
+<span class="nc" id="L77">        } catch (ParseException e) {</span>
+<span class="nc" id="L78">            e.printStackTrace();</span>
+<span class="nc" id="L79">        }</span>
+<span class="nc" id="L80">    }</span>
+
+
+
+
+    public void goBack() {
+        try {
+<span class="nc" id="L87">            Stage stage = (Stage) goBackButton.getScene().getWindow();</span>
+<span class="nc" id="L88">            stage.setTitle(&quot;Admin's view&quot;);</span>
+<span class="nc" id="L89">            Parent gobackRoot = FXMLLoader.load(getClass().getClassLoader().getResource(&quot;AdminView.fxml&quot;));</span>
+<span class="nc" id="L90">            Scene scene = new Scene(gobackRoot);</span>
+<span class="nc" id="L91">            stage.setScene(scene);</span>
+<span class="nc" id="L92">            stage.show();</span>
+<span class="nc" id="L93">        } catch (</span>
+                IOException e) {
+<span class="nc" id="L95">            e.printStackTrace();</span>
+<span class="nc" id="L96">        }</span>
+<span class="nc" id="L97">    }</span>
+
+    @FXML
+    public void handleResolvedButtonAction() throws IOException, ParseException{
+<span class="nc" id="L101">        ObservableList&lt;Donation&gt; donations = readDonationsFromFile(fileName);</span>
+<span class="nc" id="L102">        Donation d = tableView1.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L103">        Donation aux1 = null;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        for(Donation o: donations){</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if(o.equals(d))</span>
+<span class="nc" id="L106">                aux1 = o;</span>
+<span class="nc" id="L107">        }</span>
+
+<span class="nc" id="L109">        donations.remove(aux1);</span>
+
+       /* for(Donation o : donations){
+            System.out.println(o.getBookTitle());
+        }*/
+<span class="nc" id="L114">        writeDonation(fileName, donations);</span>
+
+<span class="nc" id="L116">        this.initialize();</span>
+
+
+<span class="nc" id="L119">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

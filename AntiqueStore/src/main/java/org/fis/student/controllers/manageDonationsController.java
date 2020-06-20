@@ -1,34 +1,20 @@
 package org.fis.student.controllers;
 
-import com.sun.org.apache.xml.internal.security.Init;
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.stage.Stage;
-import org.fis.student.Book;
 import org.fis.student.Donation;
-import org.fis.student.services.DonationService;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static org.fis.student.services.DonationService.readDonationsFromFile;
 import static org.fis.student.services.DonationService.writeDonation;

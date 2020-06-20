@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>stockController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student.controllers</a> &gt; <span class="el_source">stockController.java</span></div><h1>stockController.java</h1><pre class="source lang-java linenums">package org.fis.student.controllers;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.util.List;
+import java.util.HashMap;
+
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.fis.student.controllers.viewBooksController;
+
+import org.fis.student.services.BookService;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.*;
+import org.fis.student.Book;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import sun.java2d.pipe.SpanShapeRenderer;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+
+import java.io.*;
+import java.util.*;
+
+import java.net.URL;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.lang.String.valueOf;
+import static javafx.scene.control.cell.TextFieldTableCell.*;
+import static org.fis.student.services.BookService.readFromFile;
+import static org.fis.student.services.BookService.writeBooks;
+
+
+<span class="fc" id="L52">public class stockController {</span>
+
+    //configure the table
+    @FXML
+    public TableView&lt;Book&gt; tableView;
+
+    @FXML
+    public TableColumn&lt;Book, String&gt; titleColumn;
+    @FXML
+    public TableColumn&lt;Book, String&gt; authorColumn;
+    @FXML
+    public TableColumn&lt;Book, String&gt; publishingHouseColumn;
+    @FXML
+    public TableColumn&lt;Book, String&gt; yearColumn;
+    @FXML
+    public TableColumn&lt;Book, String&gt; quantityColumn;
+    @FXML
+    public TableColumn&lt;Book, String&gt; priceColumn;
+
+    //The following variables will be used in order to create a new book
+    @FXML
+    public TextField titleTextField;
+    @FXML
+    public TextField authorTextField;
+    @FXML
+    public TextField publishingHouseTextField;
+    @FXML
+    public Spinner&lt;Integer&gt; yearSpinner;
+    @FXML
+    public Spinner&lt;Integer&gt; quantitySpinner;
+    @FXML
+    public Spinner&lt;Double&gt; priceSpinner;
+
+    @FXML private Button addBookButton;
+    @FXML private Button goback;
+
+<span class="fc" id="L88">    public String fileName = &quot;../AntiqueStore/src/main/resources/books.json&quot;;</span>
+
+
+
+<span class="fc" id="L92">   public static ObservableList&lt;Book&gt; bookList = FXCollections.observableArrayList();</span>
+
+    @FXML
+    public void initialize() {
+        //configuring spinners
+<span class="fc" id="L97">        SpinnerValueFactory&lt;Integer&gt; yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1700, Year.now().getValue(), 2000);</span>
+<span class="fc" id="L98">        this.yearSpinner.setValueFactory(yearValueFactory);</span>
+<span class="fc" id="L99">        yearSpinner.setEditable(true);</span>
+
+<span class="fc" id="L101">        SpinnerValueFactory&lt;Integer&gt; quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5000, 1);</span>
+<span class="fc" id="L102">        this.quantitySpinner.setValueFactory(quantityValueFactory);</span>
+<span class="fc" id="L103">        quantitySpinner.setEditable(true);</span>
+        //set up the columns in the table
+<span class="fc" id="L105">        titleColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;title&quot;));</span>
+<span class="fc" id="L106">        authorColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;author&quot;));</span>
+<span class="fc" id="L107">        publishingHouseColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;publishingHouse&quot;));</span>
+<span class="fc" id="L108">        yearColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;year&quot;));</span>
+<span class="fc" id="L109">        priceColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;price&quot;));</span>
+<span class="fc" id="L110">        quantityColumn.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;quantity&quot;));</span>
+
+
+        try {
+<span class="fc" id="L114">            tableView.setItems(readFromFile(fileName));</span>
+<span class="nc" id="L115">        } catch (IOException e) {</span>
+<span class="nc" id="L116">            e.printStackTrace();</span>
+<span class="nc" id="L117">        } catch (ParseException e) {</span>
+<span class="nc" id="L118">            e.printStackTrace();</span>
+<span class="pc" id="L119">        }</span>
+
+<span class="fc" id="L121">        tableView.setEditable(true);</span>
+<span class="fc" id="L122">        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+        //modifying stock
+<span class="fc" id="L125">        quantityColumn.setOnEditCommit(</span>
+<span class="fc" id="L126">                new EventHandler&lt;CellEditEvent&lt;Book, String&gt;&gt;() {</span>
+                    @Override
+                    public void handle(CellEditEvent&lt;Book, String&gt; t) {
+<span class="nc" id="L129">                        Book actualizedBook = ((Book) t.getTableView().getItems().get(</span>
+<span class="nc" id="L130">                                t.getTablePosition().getRow()));</span>
+<span class="nc" id="L131">                        actualizedBook.setQuantity((String) t.getNewValue());</span>
+                        //System.out.println(actualizedBook.toString());
+
+                        try {
+<span class="nc" id="L135">                            updateJSONFile(actualizedBook, fileName);</span>
+<span class="nc" id="L136">                        } catch (IOException e) {</span>
+<span class="nc" id="L137">                            e.printStackTrace();</span>
+<span class="nc" id="L138">                        } catch (ParseException e) {</span>
+<span class="nc" id="L139">                            e.printStackTrace();</span>
+<span class="nc" id="L140">                        }</span>
+<span class="nc" id="L141">                    }</span>
+                }
+                );
+<span class="fc" id="L144">    }</span>
+
+
+
+    public void updateJSONFile(Book actualizedBook, String fileName) throws IOException, ParseException {
+<span class="fc" id="L149">        ObservableList&lt;Book&gt; books = readFromFile(fileName);</span>
+<span class="fc" id="L150">        Book aux1 = null;</span>
+
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        for(Book b: books){</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">            if(b.equals(actualizedBook)) {</span>
+<span class="fc" id="L154">                aux1 = b;</span>
+                //System.out.println(aux1.toString());
+            }
+<span class="fc" id="L157">        }</span>
+
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if(aux1 != null) {</span>
+<span class="fc" id="L160">            books.remove(aux1); //deleting the same book that has the old quantity</span>
+<span class="fc" id="L161">            books.add(actualizedBook); //adding the same book, with the updated quantity</span>
+        }
+<span class="fc" id="L163">            writeBooks(fileName, books);</span>
+<span class="fc" id="L164">            this.initialize();</span>
+<span class="fc" id="L165">    }</span>
+
+
+
+
+
+    /*This method will retrurn an ObservableList of Books objects */
+    /*public ObservableList&lt;Book&gt; getBooks(){
+        ObservableList&lt;Book&gt; books = FXCollections.observableArrayList();
+        books.add(new Book(&quot;Why am I so clever&quot;, &quot;Friedrich Nietzsche&quot;, &quot;Penguin Books Ltd&quot;, &quot;2016&quot;, 12.3, &quot;2&quot;));
+        books.add(new Book(&quot;Mindset&quot;, &quot;Carol S. Dweck&quot;, &quot;Curtea Veche&quot;, &quot;2017&quot;,  11.5,&quot;1&quot;));
+        books.add(new Book(&quot;The Ultimate Guide to Friends&quot;, &quot;Malcolm Mackenzie&quot;, &quot;Egmont UK Ltd&quot;, &quot;2019&quot;, 29.0,&quot;4&quot;));
+
+        return books;
+    }*/
+
+    /* This method will create a new book and add it to the table*/
+
+    public void newBookButtonPushed(){
+<span class="nc" id="L184">        addBookButton.setOnAction(value-&gt; {</span>
+<span class="nc" id="L185">            int yearValue = (int) yearSpinner.getValue();</span>
+<span class="nc" id="L186">            int quantityValue = (int) quantitySpinner.getValue();</span>
+<span class="nc" id="L187">            double priceValue = (double) priceSpinner.getValue();</span>
+
+<span class="nc" id="L189">            Book newBook = new Book(titleTextField.getText(), authorTextField.getText(),</span>
+<span class="nc" id="L190">                    publishingHouseTextField.getText(), valueOf(yearValue), valueOf(priceValue), valueOf(quantityValue));</span>
+
+            try {
+<span class="nc" id="L193">                writeNewBook(newBook, fileName);</span>
+<span class="nc" id="L194">            } catch (IOException e) {</span>
+<span class="nc" id="L195">                e.printStackTrace();</span>
+<span class="nc" id="L196">            } catch (ParseException e) {</span>
+<span class="nc" id="L197">                e.printStackTrace();</span>
+<span class="nc" id="L198">            }</span>
+
+<span class="nc" id="L200">            tableView.getItems().add(newBook);</span>
+
+<span class="nc" id="L202">        });</span>
+<span class="nc" id="L203">        }</span>
+
+
+    public void writeNewBook(Book newBook, String fileName) throws IOException, ParseException {
+        //ObservableList&lt;Book&gt; bookList = FXCollections.observableArrayList();
+<span class="fc" id="L208">        bookList = readFromFile(fileName);</span>
+<span class="fc" id="L209">        bookList.add(newBook);</span>
+<span class="fc" id="L210">        BookService.writeBooks(fileName, bookList);</span>
+<span class="fc" id="L211">    }</span>
+
+    public void handleDeleteBookButtonAction() throws IOException, ParseException {
+<span class="nc" id="L214">        ObservableList&lt;Book&gt; books = readFromFile(fileName);</span>
+<span class="nc" id="L215">        Book deletedBook = tableView.getSelectionModel().getSelectedItem();</span>
+
+<span class="nc" id="L217">        Book aux1 = null;</span>
+
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        for(Book b: books){</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">            if(b.equals(deletedBook)) {</span>
+<span class="nc" id="L221">                aux1 = b;</span>
+                //System.out.println(aux1.toString());
+            }
+<span class="nc" id="L224">        }</span>
+
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        if(aux1 != null)</span>
+<span class="nc" id="L227">            books.remove(aux1);</span>
+
+<span class="nc" id="L229">        writeBooks(fileName, books);</span>
+<span class="nc" id="L230">        this.initialize();</span>
+<span class="nc" id="L231">    }</span>
+
+
+
+
+    public void GoBack() {
+        try {
+<span class="nc" id="L238">            Stage stage = (Stage) goback.getScene().getWindow();</span>
+<span class="nc" id="L239">            stage.setTitle(&quot;Admin's view&quot;);</span>
+<span class="nc" id="L240">            Parent gobackRoot = FXMLLoader.load(getClass().getClassLoader().getResource(&quot;AdminView.fxml&quot;));</span>
+<span class="nc" id="L241">            Scene scene = new Scene(gobackRoot);</span>
+<span class="nc" id="L242">            stage.setScene(scene);</span>
+<span class="nc" id="L243">            stage.show();</span>
+<span class="nc" id="L244">        } catch (</span>
+                IOException e) {
+<span class="nc" id="L246">            e.printStackTrace();</span>
+<span class="nc" id="L247">        }</span>
+<span class="nc" id="L248">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

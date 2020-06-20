@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student.services</a> &gt; <span class="el_source">OrderService.java</span></div><h1>OrderService.java</h1><pre class="source lang-java linenums">package org.fis.student.services;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.fis.student.*;
+import org.fis.student.controllers.manageOrderController;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+<span class="nc" id="L16">public class OrderService {</span>
+    public static void writeNewOrder(Order newOrder, String file1) throws IOException, ParseException {
+
+<span class="nc" id="L19">        ObservableList&lt;Order&gt; OrderList = FXCollections.observableArrayList();</span>
+<span class="nc" id="L20">        OrderList =ReadOrder(file1);</span>
+
+<span class="nc" id="L22">        OrderList.add(newOrder);</span>
+
+<span class="nc" id="L24">        FileWriter file = new FileWriter(file1);</span>
+
+
+<span class="nc" id="L27">        JSONArray all_orders = new JSONArray();</span>
+
+
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        for (Order aux: OrderList) {</span>
+<span class="nc" id="L31">            JSONObject OrderDetails = new JSONObject();</span>
+<span class="nc" id="L32">            OrderDetails.put(&quot;firstName&quot;, aux.getClient().getFirstName());</span>
+<span class="nc" id="L33">            OrderDetails.put(&quot;lastName&quot;, aux.getClient().getLastName());</span>
+<span class="nc" id="L34">            OrderDetails.put(&quot;phoneNumber&quot;, aux.getClient().getPhoneNumber());</span>
+<span class="nc" id="L35">            OrderDetails.put(&quot;City&quot;, aux.getClient().getCity());</span>
+<span class="nc" id="L36">            OrderDetails.put(&quot;Address&quot;, aux.getClient().getAddress());</span>
+<span class="nc" id="L37">            OrderDetails.put(&quot;Total&quot;, aux.getCart().getTotal());</span>
+
+<span class="nc" id="L39">            int no_of_books = aux.getCart().getBooks().size();</span>
+
+<span class="nc" id="L41">            JSONArray books = new JSONArray();</span>
+<span class="nc" id="L42">            books.clear();</span>
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            for (int i = 0; i &lt; no_of_books; i++) {</span>
+<span class="nc" id="L45">                JSONObject book_i = new JSONObject();</span>
+<span class="nc" id="L46">                book_i.put(&quot;Title&quot;, aux.getCart().getBooks().get(i).getTitle());</span>
+<span class="nc" id="L47">                book_i.put(&quot;Author&quot;, aux.getCart().getBooks().get(i).getAuthor());</span>
+<span class="nc" id="L48">                book_i.put(&quot;PublishingHouse&quot;, aux.getCart().getBooks().get(i).getPublishingHouse());</span>
+<span class="nc" id="L49">                book_i.put(&quot;Year&quot;, aux.getCart().getBooks().get(i).getYear());</span>
+<span class="nc" id="L50">                book_i.put(&quot;Price&quot;, aux.getCart().getBooks().get(i).getPrice());</span>
+<span class="nc" id="L51">                book_i.put(&quot;Quantity&quot;, aux.getCart().getBooks().get(i).getQuantity());</span>
+<span class="nc" id="L52">                books.add(book_i);</span>
+            }
+<span class="nc" id="L54">            OrderDetails.put(&quot;Books&quot;, books);</span>
+<span class="nc" id="L55">            all_orders.add(OrderDetails);</span>
+<span class="nc" id="L56">        }</span>
+
+<span class="nc" id="L58">        file.write(all_orders.toJSONString());</span>
+<span class="nc" id="L59">        file.flush();</span>
+
+
+<span class="nc" id="L62">    }</span>
+
+    public static ObservableList&lt;Order&gt; ReadOrder(String file) throws IOException, ParseException {
+<span class="fc" id="L65">        ObservableList&lt;Order&gt; orders=FXCollections.observableArrayList();</span>
+<span class="fc" id="L66">        JSONParser jsonParser=new JSONParser();</span>
+<span class="fc" id="L67">        FileReader reader=new FileReader(file);</span>
+<span class="fc" id="L68">        Object obj=jsonParser.parse(reader);</span>
+<span class="fc" id="L69">        JSONArray orderList = (JSONArray)obj;</span>
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        for(Object order : orderList){</span>
+<span class="fc" id="L72">            JSONObject o = (JSONObject)order;</span>
+<span class="fc" id="L73">            Client c=new Client(o.get(&quot;firstName&quot;).toString(), o.get(&quot;lastName&quot;).toString(),o.get(&quot;Address&quot;).toString(), o.get(&quot;phoneNumber&quot;).toString(), o.get(&quot;City&quot;).toString());</span>
+<span class="fc" id="L74">            JSONArray Books=(JSONArray)o.get(&quot;Books&quot;);</span>
+<span class="fc" id="L75">            ObservableList&lt;Book&gt; bookList=FXCollections.observableArrayList();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            for(Object book : Books){</span>
+<span class="fc" id="L77">                JSONObject b = (JSONObject)book;</span>
+<span class="fc" id="L78">                Book B=new Book(b.get(&quot;Title&quot;).toString(), b.get(&quot;Author&quot;).toString(), b.get(&quot;PublishingHouse&quot;).toString(), b.get(&quot;Year&quot;).toString(), b.get(&quot;Price&quot;).toString(), b.get(&quot;Quantity&quot;).toString());</span>
+<span class="fc" id="L79">                bookList.add(B);</span>
+<span class="fc" id="L80">            }</span>
+<span class="fc" id="L81">            Order O=new Order(new Cart(bookList), c);</span>
+<span class="fc" id="L82">            O.getCart().setTotal(o.get(&quot;Total&quot;).toString());</span>
+<span class="fc" id="L83">            orders.add(O);</span>
+<span class="fc" id="L84">        }</span>
+<span class="fc" id="L85">        return orders;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

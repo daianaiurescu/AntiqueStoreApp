@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Donation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student</a> &gt; <span class="el_source">Donation.java</span></div><h1>Donation.java</h1><pre class="source lang-java linenums">package org.fis.student;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
+
+public class Donation {
+    private SimpleStringProperty bookTitle, bookAuthor, bookPublishingHouse, bookYear;
+    private SimpleStringProperty donorFirstName, donorLastName, donorEmail, donorPhoneNumber;
+
+    public Donation(String bookTitle, String bookAuthor, String bookPublishingHouse, String bookYear,
+<span class="fc" id="L13">                    String donorFirstName, String donorLastName, String donorEmail, String donorPhoneNumber){</span>
+<span class="fc" id="L14">        this.bookTitle = new SimpleStringProperty(bookTitle);</span>
+<span class="fc" id="L15">        this.bookAuthor = new SimpleStringProperty(bookAuthor);</span>
+<span class="fc" id="L16">        this.bookPublishingHouse = new SimpleStringProperty(bookPublishingHouse);</span>
+<span class="fc" id="L17">        this.bookYear = new SimpleStringProperty(bookYear);</span>
+<span class="fc" id="L18">        this.donorFirstName = new SimpleStringProperty(donorFirstName);</span>
+<span class="fc" id="L19">        this.donorLastName = new SimpleStringProperty(donorLastName);</span>
+<span class="fc" id="L20">        this.donorEmail = new SimpleStringProperty(donorEmail);</span>
+<span class="fc" id="L21">        this.donorPhoneNumber = new SimpleStringProperty(donorPhoneNumber);</span>
+<span class="fc" id="L22">    }</span>
+
+
+    public String getBookTitle() {
+<span class="fc" id="L26">        return bookTitle.get();</span>
+    }
+
+    public String getBookAuthor() {
+<span class="fc" id="L30">        return bookAuthor.get();</span>
+    }
+
+    public String getBookPublishingHouse() {
+<span class="fc" id="L34">        return bookPublishingHouse.get();</span>
+    }
+
+    public String getBookYear() {
+<span class="fc" id="L38">        return bookYear.get();</span>
+    }
+
+    public String getDonorFirstName() {
+<span class="fc" id="L42">        return donorFirstName.get();</span>
+    }
+
+    public String getDonorLastName() {
+<span class="fc" id="L46">        return donorLastName.get();</span>
+    }
+
+    public String getDonorEmail() {
+<span class="fc" id="L50">        return donorEmail.get();</span>
+    }
+
+    public String getDonorPhoneNumber() {
+<span class="fc" id="L54">        return donorPhoneNumber.get();</span>
+    }
+
+    public boolean equals(Object d){
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if(d instanceof Donation){</span>
+<span class="pc bpc" id="L59" title="1 of 4 branches missed.">        if(((Donation) d).getBookTitle().equals(this.getBookTitle()) &amp;&amp; ((Donation) d).getBookAuthor().equals(this.getBookAuthor()) &amp;&amp;</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                ((Donation) d).getBookPublishingHouse().equals(this.getBookPublishingHouse()) &amp;&amp;</span>
+<span class="pc bpc" id="L61" title="2 of 4 branches missed.">                ((Donation) d).getBookYear().equals(this.getBookYear()) &amp;&amp; ((Donation) d).getDonorFirstName().equals(this.getDonorFirstName())</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                &amp;&amp; ((Donation) d).getDonorLastName().equals(this.getDonorLastName()) &amp;&amp;</span>
+<span class="pc bpc" id="L63" title="2 of 4 branches missed.">        ((Donation) d).getDonorEmail().equals(this.getDonorEmail()) &amp;&amp; ((Donation) d).getDonorPhoneNumber().equals(this.getDonorPhoneNumber()))</span>
+<span class="fc" id="L64">            return true;}</span>
+<span class="fc" id="L65">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

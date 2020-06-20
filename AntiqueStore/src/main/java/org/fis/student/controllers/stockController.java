@@ -52,30 +52,46 @@ import static org.fis.student.services.BookService.writeBooks;
 public class stockController {
 
     //configure the table
-    @FXML private TableView<Book> tableView;
+    @FXML
+    public TableView<Book> tableView;
 
-    @FXML private TableColumn<Book, String> titleColumn;
-    @FXML private TableColumn<Book, String> authorColumn;
-    @FXML private TableColumn<Book, String> publishingHouseColumn;
-    @FXML private TableColumn<Book, String> yearColumn;
-    @FXML private TableColumn<Book, String> quantityColumn;
-    @FXML private TableColumn<Book, String> priceColumn;
+    @FXML
+    public TableColumn<Book, String> titleColumn;
+    @FXML
+    public TableColumn<Book, String> authorColumn;
+    @FXML
+    public TableColumn<Book, String> publishingHouseColumn;
+    @FXML
+    public TableColumn<Book, String> yearColumn;
+    @FXML
+    public TableColumn<Book, String> quantityColumn;
+    @FXML
+    public TableColumn<Book, String> priceColumn;
 
     //The following variables will be used in order to create a new book
-    @FXML private TextField titleTextField;
-    @FXML private TextField authorTextField;
-    @FXML private TextField publishingHouseTextField;
-    @FXML private Spinner<Integer> yearSpinner;
-    @FXML private Spinner<Integer> quantitySpinner;
-    @FXML private Spinner<Double> priceSpinner;
+    @FXML
+    public TextField titleTextField;
+    @FXML
+    public TextField authorTextField;
+    @FXML
+    public TextField publishingHouseTextField;
+    @FXML
+    public Spinner<Integer> yearSpinner;
+    @FXML
+    public Spinner<Integer> quantitySpinner;
+    @FXML
+    public Spinner<Double> priceSpinner;
+
     @FXML private Button addBookButton;
+
     @FXML private Button goback;
 
     public String fileName = "../AntiqueStore/src/main/resources/books.json";
 
 
 
-   private ObservableList<Book> bookList = FXCollections.observableArrayList();
+
+   public static ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -118,7 +134,7 @@ public class stockController {
                         //System.out.println(actualizedBook.toString());
 
                         try {
-                            updateJSONFile(actualizedBook);
+                            updateJSONFile(actualizedBook, fileName);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (ParseException e) {
@@ -131,7 +147,7 @@ public class stockController {
 
 
 
-    public void updateJSONFile(Book actualizedBook) throws IOException, ParseException {
+    public void updateJSONFile(Book actualizedBook, String fileName) throws IOException, ParseException {
         ObservableList<Book> books = readFromFile(fileName);
         Book aux1 = null;
 
@@ -167,8 +183,6 @@ public class stockController {
     /* This method will create a new book and add it to the table*/
 
     public void newBookButtonPushed(){
-
-       // ObservableList<Book> books = FXCollections.observableArrayList();
         addBookButton.setOnAction(value-> {
             int yearValue = (int) yearSpinner.getValue();
             int quantityValue = (int) quantitySpinner.getValue();
@@ -178,7 +192,7 @@ public class stockController {
                     publishingHouseTextField.getText(), valueOf(yearValue), valueOf(priceValue), valueOf(quantityValue));
 
             try {
-                writeNewBook(newBook);
+                writeNewBook(newBook, fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -191,20 +205,19 @@ public class stockController {
         }
 
 
-    public void writeNewBook(Book newBook) throws IOException, ParseException {
-        ObservableList<Book> bookList = FXCollections.observableArrayList();
+    public void writeNewBook(Book newBook, String fileName) throws IOException, ParseException {
         bookList = readFromFile(fileName);
         bookList.add(newBook);
         BookService.writeBooks(fileName, bookList);
     }
 
     public void handleDeleteBookButtonAction() throws IOException, ParseException {
-        ObservableList<Book> books = readFromFile(fileName);
+        bookList = readFromFile(fileName);
         Book deletedBook = tableView.getSelectionModel().getSelectedItem();
 
         Book aux1 = null;
 
-        for(Book b: books){
+        for(Book b: bookList){
             if(b.equals(deletedBook)) {
                 aux1 = b;
                 //System.out.println(aux1.toString());
@@ -212,9 +225,9 @@ public class stockController {
         }
 
         if(aux1 != null)
-            books.remove(aux1);
+            bookList.remove(aux1);
 
-        writeBooks(fileName, books);
+        writeBooks(fileName, bookList);
         this.initialize();
     }
 
