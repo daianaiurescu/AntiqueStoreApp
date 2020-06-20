@@ -1,6 +1,5 @@
 package org.fis.student.controllers;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.Part;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.fis.student.*;
 
 
 import org.fis.student.Book;
@@ -23,14 +21,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import static javafx.fxml.FXMLLoader.load;
-import static org.fis.student.services.OrderService.ReadOrder;
-import static org.fis.student.services.OrderService.writeNewOrder;
 
 
 public class manageOrderController {
@@ -52,6 +48,8 @@ public class manageOrderController {
 
     public Dialog d;
 
+    public String File="../AntiqueStore/src/main/resources/orders.json";
+
     @FXML
    public void initialize(){
         dataTable2=FXCollections.observableArrayList();
@@ -62,7 +60,7 @@ public class manageOrderController {
         Address.setCellValueFactory(new PropertyValueFactory<Client, String>("Address"));
 
         try {
-            table1.setItems(getClients("../AntiqueStore/src/main/resources/orders.json"));
+            table1.setItems(getClients(File));
         }catch(IOException e){
             e.printStackTrace();
         }catch(ParseException e){
@@ -86,11 +84,11 @@ public class manageOrderController {
         });
 
    }
-   private void events() throws IOException, ParseException {
+   public void events() throws IOException, ParseException {
 
        for(Client client : table1.getSelectionModel().getSelectedItems()){
            dataTable2.clear();
-           dataTable2=getOrderedBooks(client, "../AntiqueStore/src/main/resources/orders.json");
+           dataTable2=getOrderedBooks(client, File);
        }
        table2.setItems(dataTable2);
     }
@@ -99,16 +97,16 @@ public class manageOrderController {
         Total.setText("0.0");
         String total="0.0";
         for(Client client:table1.getSelectionModel().getSelectedItems()){
-            total=getTotal(client, "../AntiqueStore/src/main/resources/orders.json");
+            total=getTotal(client, File);
         }
         Total.setText(total);
     }
 
 
-  /**public static ObservableList<Order> ReadOrder() throws IOException, ParseException {
+  public static ObservableList<Order> ReadOrder(String fileName) throws IOException, ParseException {
       ObservableList<Order> orders=FXCollections.observableArrayList();
       JSONParser jsonParser=new JSONParser();
-      FileReader reader=new FileReader("../AntiqueStore/src/main/resources/orders.json");
+      FileReader reader=new FileReader(fileName);
       Object obj=jsonParser.parse(reader);
       JSONArray orderList = (JSONArray)obj;
 
@@ -127,7 +125,7 @@ public class manageOrderController {
           orders.add(O);
       }
       return orders;
-  }**/
+  }
 
 
    public ObservableList<Client> getClients(String file) throws IOException, ParseException{
