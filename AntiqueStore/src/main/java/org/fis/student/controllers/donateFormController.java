@@ -28,6 +28,9 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ResourceBundle;
 
+import static org.fis.student.services.DonationService.readDonationsFromFile;
+import static org.fis.student.services.DonationService.writeDonation;
+
 public class donateFormController{
 
     @FXML
@@ -37,43 +40,39 @@ public class donateFormController{
     private URL location;
 
     @FXML
-    private TextField userLastNameField;
+    public TextField userLastNameField;
 
     @FXML
-    private TextField userFirstNameField;
+    public TextField userFirstNameField;
 
     @FXML
-    private TextField userEmailField;
+    public TextField userEmailField;
 
     @FXML
-    private TextField userNumberField;
+    public TextField userNumberField;
 
     @FXML
-    private TextField bookTitleField;
+    public TextField bookTitleField;
 
     @FXML
-    private TextField authorNameField;
+    public TextField authorNameField;
 
     @FXML
-    private TextField publishingHouseField;
+    public TextField publishingHouseField;
 
     @FXML
-    private TextField publishingYearField;
+    public TextField publishingYearField;
     @FXML
     private Button goback;
 
-    @FXML
-    private Button submitButton;
+    public String fileName = "../AntiqueStore/src/main/resources/donations.json";
+
+    public Dialog d;
+
+    public static ObservableList<Donation> donationList;
 
 
-    @FXML
-    void initialize() {
-    }
-
-    @FXML private Text actiontarget;
-
-    public void handleSubmitButtonAction(ActionEvent event) throws IOException {
-        Dialog d;
+    public void handleSubmitButtonAction() throws IOException {
         if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||
                 userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||
         bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||
@@ -92,7 +91,7 @@ public class donateFormController{
                     userEmailField.getText(), userNumberField.getText());
 
             try {
-                writeNewDonation(newDonation);
+                writeNewDonation(newDonation, fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -101,35 +100,13 @@ public class donateFormController{
 
         }
 
-
     }
 
-    public void writeNewDonation(Donation newDonation) throws IOException, ParseException {
-        ObservableList<Donation> donationList = FXCollections.observableArrayList();
-        donationList = manageDonationsController.readDonationsFromFile();
+    public void writeNewDonation(Donation newDonation, String fileName) throws IOException, ParseException {
+        donationList = readDonationsFromFile(fileName);
 
         donationList.add(newDonation);
-        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/donations.json");
-
-
-        JSONArray donations = new JSONArray();
-        for (Donation aux: donationList){
-            JSONObject donationDetails = new JSONObject();
-            donationDetails.put("donorFirstName", aux.getDonorFirstName());
-            donationDetails.put("donorLastName", aux.getDonorLastName());
-            donationDetails.put("donorEmail", aux.getDonorEmail());
-            donationDetails.put("donorPhoneNumber", aux.getDonorPhoneNumber());
-            donationDetails.put("bookTitle", aux.getBookTitle());
-            donationDetails.put("bookAuthor", aux.getBookAuthor());
-            donationDetails.put("bookPublishingHouse", aux.getBookPublishingHouse());
-            donationDetails.put("bookYearOfPublishing", aux.getBookYear());
-
-
-            donations.add(donationDetails);
-        }
-
-        file.write(donations.toJSONString());
-        file.flush();
+        writeDonation(fileName, donationList);
 
     }
 

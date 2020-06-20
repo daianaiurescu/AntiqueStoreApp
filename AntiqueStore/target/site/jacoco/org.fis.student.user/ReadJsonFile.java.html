@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadJsonFile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student.user</a> &gt; <span class="el_source">ReadJsonFile.java</span></div><h1>ReadJsonFile.java</h1><pre class="source lang-java linenums">package org.fis.student.user;
+
+import org.fis.student.exception.WrongPasswordException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+<span class="nc" id="L12">public class ReadJsonFile {</span>
+    private static String role;
+<span class="fc" id="L14">    private static boolean found=false;</span>
+    public static void Read(String pass, String mail) throws WrongPasswordException, IOException, ParseException {
+<span class="fc" id="L16">        JSONParser jsonParser = new JSONParser();</span>
+<span class="fc" id="L17">        FileReader reader=new FileReader(&quot;../AntiqueStore/src/main/resources/users.json&quot;);</span>
+<span class="fc" id="L18">        Object obj=jsonParser.parse(reader);</span>
+<span class="fc" id="L19">        JSONArray userList = (JSONArray)obj;</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        for(Object user:userList) {</span>
+<span class="fc" id="L21">            JSONObject o = (JSONObject) user;</span>
+<span class="pc bpc" id="L22" title="3 of 4 branches missed.">            if (o.get(&quot;passwordField&quot;).toString().equals(pass) &amp;&amp; o.get(&quot;mailField&quot;).toString().equals(mail)) {</span>
+<span class="nc" id="L23">                found=true;</span>
+<span class="nc" id="L24">                role = o.get(&quot;roleField&quot;).toString();</span>
+<span class="nc" id="L25">                return;</span>
+            }
+<span class="fc" id="L27">        }</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if(found==false)</span>
+<span class="fc" id="L29">            throw new WrongPasswordException();</span>
+
+<span class="nc" id="L31">    }</span>
+    public static String getRole(){
+<span class="nc" id="L33">        return role;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

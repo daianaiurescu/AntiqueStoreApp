@@ -18,39 +18,39 @@ import java.io.IOException;
 
 public class cartController {
     @FXML
-    private TableView<Book> tableView;
+    public TableView<Book> tableView;
 
     @FXML
-    private TableColumn<Book, String> titleColumn;
+    public TableColumn<Book, String> titleColumn;
 
     @FXML
-    private TableColumn<Book, String> authorColumn;
+    public TableColumn<Book, String> authorColumn;
 
     @FXML
-    private TableColumn<Book, String> publishingHouseColumn;
+    public TableColumn<Book, String> publishingHouseColumn;
 
     @FXML
-    private TableColumn<Book, String> yearColumn;
+    public TableColumn<Book, String> yearColumn;
 
     @FXML
-    private TableColumn<Book, String> priceColumn;
+    public TableColumn<Book, String> priceColumn;
 
     @FXML
-    private TableColumn<Book, String> quantityColumn;
+    public TableColumn<Book, String> quantityColumn;
     @FXML
-    private Button goback, order;
-
-    @FXML
-    private Label total;
-
-
-
-    private ObservableList<Book> selectedBooks=FXCollections.observableArrayList();
-    private Cart c=new Cart(selectedBooks);
-
+    public Button goback, order;
 
     @FXML
-    private void initialize(){
+    public Label total;
+
+
+
+    public ObservableList<Book> selectedBooks=FXCollections.observableArrayList();
+    public Cart c=new Cart(selectedBooks);
+
+
+    @FXML
+    public void initialize(){
         titleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
         publishingHouseColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("publishingHouse"));
@@ -102,7 +102,7 @@ public class cartController {
 
 
     @FXML
-    public void Order(ActionEvent event) {
+    public void Order() {
         try {
             Stage stage=(Stage) order.getScene().getWindow();
             stage.setTitle("Your info");

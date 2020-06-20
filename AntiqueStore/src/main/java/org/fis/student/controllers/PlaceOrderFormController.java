@@ -6,13 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.fis.student.*;
-import org.fis.student.services.OrderService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -26,20 +23,22 @@ public class PlaceOrderFormController {
 
     public Dialog d;
 
+    public String fileName="../AntiqueStore/src/main/resources/orders.json";
+
     public void getCartFromController1(Cart cart){
         c=new Cart(cart.getBooks());
         c.setTotal(cart.getTotal());
     }
 
 
-   /** public void writeNewOrder(Order newOrder) throws IOException, ParseException {
+    public void writeNewOrder(Order newOrder, String fileName) throws IOException, ParseException {
 
         ObservableList<Order> OrderList = FXCollections.observableArrayList();
-        OrderList = manageOrderController.ReadOrder();
+        OrderList = manageOrderController.ReadOrder(fileName);
 
         OrderList.add(newOrder);
 
-        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/orders.json");
+        FileWriter file = new FileWriter(fileName);
 
 
         JSONArray all_orders = new JSONArray();
@@ -77,7 +76,7 @@ public class PlaceOrderFormController {
             file.flush();
 
 
-    }**/
+    }
 
 
     @FXML
@@ -94,7 +93,7 @@ public class PlaceOrderFormController {
             Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());
             o=new Order(c, cl);
             try {
-                OrderService.writeNewOrder(o, "../AntiqueStore/src/main/resources/orders.json");
+                writeNewOrder(o, fileName);
             }catch(IOException e){
                 e.printStackTrace();
             }catch(ParseException e1){

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>donateFormController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student.controllers</a> &gt; <span class="el_source">donateFormController.java</span></div><h1>donateFormController.java</h1><pre class="source lang-java linenums">
+package org.fis.student.controllers;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import javafx.event.ActionEvent;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Window;
+import org.fis.student.Book;
+import org.fis.student.Donation;
+import org.fis.student.controllers.manageDonationsController;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.util.ResourceBundle;
+
+import static org.fis.student.services.DonationService.readDonationsFromFile;
+import static org.fis.student.services.DonationService.writeDonation;
+
+<span class="fc" id="L34">public class donateFormController{</span>
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    public TextField userLastNameField;
+
+    @FXML
+    public TextField userFirstNameField;
+
+    @FXML
+    public TextField userEmailField;
+
+    @FXML
+    public TextField userNumberField;
+
+    @FXML
+    public TextField bookTitleField;
+
+    @FXML
+    public TextField authorNameField;
+
+    @FXML
+    public TextField publishingHouseField;
+
+    @FXML
+    public TextField publishingYearField;
+    @FXML
+    private Button goback;
+
+<span class="fc" id="L68">    public String fileName = &quot;../AntiqueStore/src/main/resources/donations.json&quot;;</span>
+
+    public Dialog d;
+
+    public static ObservableList&lt;Donation&gt; donationList;
+
+
+    public void handleSubmitButtonAction() throws IOException {
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        if(userFirstNameField.getText().isEmpty() || userLastNameField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L77" title="All 4 branches missed.">                userEmailField.getText().isEmpty() || userNumberField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">        bookTitleField.getText().isEmpty() ||  authorNameField.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L79" title="All 4 branches missed.">                publishingHouseField.getText().isEmpty() ||  publishingYearField.getText().isEmpty()){</span>
+<span class="nc" id="L80">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Form Error! None of these fields should be empty.&quot;);</span>
+<span class="nc" id="L81">            d.show();</span>
+<span class="nc" id="L82">            return;</span>
+        }
+
+        else{
+<span class="nc" id="L86">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Donation submitted.&quot;);</span>
+<span class="nc" id="L87">            d.show();</span>
+<span class="nc" id="L88">            Donation newDonation = new Donation(bookTitleField.getText(), authorNameField.getText(),</span>
+<span class="nc" id="L89">                    publishingHouseField.getText(), publishingYearField.getText(),</span>
+<span class="nc" id="L90">                    userFirstNameField.getText(), userLastNameField.getText(),</span>
+<span class="nc" id="L91">                    userEmailField.getText(), userNumberField.getText());</span>
+
+            try {
+<span class="nc" id="L94">                writeNewDonation(newDonation, fileName);</span>
+<span class="nc" id="L95">            } catch (IOException e) {</span>
+<span class="nc" id="L96">                e.printStackTrace();</span>
+<span class="nc" id="L97">            } catch (ParseException e) {</span>
+<span class="nc" id="L98">                e.printStackTrace();</span>
+<span class="nc" id="L99">            }</span>
+
+        }
+
+<span class="nc" id="L103">    }</span>
+
+    public void writeNewDonation(Donation newDonation, String fileName) throws IOException, ParseException {
+<span class="fc" id="L106">        donationList = readDonationsFromFile(fileName);</span>
+
+<span class="fc" id="L108">        donationList.add(newDonation);</span>
+<span class="fc" id="L109">        writeDonation(fileName, donationList);</span>
+
+<span class="fc" id="L111">    }</span>
+
+    public void GoBack(){
+        try {
+<span class="nc" id="L115">            Stage stage = (Stage) goback.getScene().getWindow();</span>
+<span class="nc" id="L116">            stage.setTitle(&quot;Log in&quot;);</span>
+<span class="nc" id="L117">            Parent gobackRoot= FXMLLoader.load(getClass().getClassLoader().getResource(&quot;LogIn.fxml&quot;));</span>
+<span class="nc" id="L118">            Scene scene = new Scene(gobackRoot);</span>
+<span class="nc" id="L119">            stage.setScene(scene);</span>
+<span class="nc" id="L120">            stage.show();</span>
+<span class="nc" id="L121">        } catch (IOException e) {</span>
+<span class="nc" id="L122">            e.printStackTrace();</span>
+<span class="nc" id="L123">        }</span>
+<span class="nc" id="L124">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

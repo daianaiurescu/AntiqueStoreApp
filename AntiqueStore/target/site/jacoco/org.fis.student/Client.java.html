@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Client.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student</a> &gt; <span class="el_source">Client.java</span></div><h1>Client.java</h1><pre class="source lang-java linenums">package org.fis.student;
+
+public class Client {
+    private String firstName, lastName, address, phoneNumber, city;
+<span class="fc" id="L5">    public Client(String fn, String ln, String a, String pn, String c){</span>
+<span class="fc" id="L6">        firstName=fn;</span>
+<span class="fc" id="L7">        lastName=ln;</span>
+<span class="fc" id="L8">        address=a;</span>
+<span class="fc" id="L9">        phoneNumber=pn;</span>
+<span class="fc" id="L10">        city=c;</span>
+<span class="fc" id="L11">    }</span>
+<span class="fc" id="L12">    public String getFirstName(){return firstName;}</span>
+<span class="fc" id="L13">    public String getLastName(){return lastName;}</span>
+<span class="fc" id="L14">    public String getAddress(){return address;}</span>
+<span class="fc" id="L15">    public String getPhoneNumber(){return phoneNumber;}</span>
+<span class="fc" id="L16">    public String getCity(){return city;}</span>
+    public boolean equals(Object o){
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        if(o instanceof Client){</span>
+<span class="fc" id="L19">            Client c=(Client)o;</span>
+<span class="pc bpc" id="L20" title="1 of 4 branches missed.">             if (this.getFirstName().equals(c.getFirstName()) &amp;&amp; this.getLastName().equals(c.getLastName()) &amp;&amp;</span>
+<span class="pc bpc" id="L21" title="3 of 6 branches missed.">                     this.getAddress().equals(c.getAddress()) &amp;&amp; this.getCity().equals(c.getCity()) &amp;&amp; this.getPhoneNumber().equals(c.getPhoneNumber()))</span>
+<span class="fc" id="L22">                    return true;</span>
+        }
+<span class="fc" id="L24">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

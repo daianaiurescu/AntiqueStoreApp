@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Book.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AntiqueStore</a> &gt; <a href="index.source.html" class="el_package">org.fis.student</a> &gt; <span class="el_source">Book.java</span></div><h1>Book.java</h1><pre class="source lang-java linenums">package org.fis.student;
+
+import javafx.beans.property.SimpleStringProperty;
+
+public class Book {
+    private SimpleStringProperty title, author, publishingHouse;
+    private SimpleStringProperty year, price;
+    private String quantity;
+
+<span class="fc" id="L10">    public Book(String title, String author, String publishingHouse, String year, String price, String quantity){</span>
+<span class="fc" id="L11">        this.title = new SimpleStringProperty(title);</span>
+<span class="fc" id="L12">        this.author = new SimpleStringProperty(author);</span>
+<span class="fc" id="L13">        this.publishingHouse = new SimpleStringProperty(publishingHouse);</span>
+<span class="fc" id="L14">        this.year = new SimpleStringProperty(year);</span>
+<span class="fc" id="L15">        this.quantity = quantity;</span>
+<span class="fc" id="L16">        this.price = new SimpleStringProperty(price);</span>
+<span class="fc" id="L17">    }</span>
+
+    public String getTitle(){
+<span class="fc" id="L20">        return title.get();</span>
+    }
+
+    public String getAuthor() {
+<span class="fc" id="L24">        return author.get();</span>
+    }
+
+    public String getPublishingHouse(){
+<span class="fc" id="L28">        return publishingHouse.get();</span>
+    }
+
+    public String getYear(){
+<span class="fc" id="L32">        return year.get();</span>
+    }
+
+    public String getQuantity(){
+<span class="fc" id="L36">        return quantity;</span>
+    }
+
+    public void setQuantity(String quantity){
+<span class="fc" id="L40">        this.quantity = quantity;</span>
+<span class="fc" id="L41">    }</span>
+
+    public String getPrice() {
+<span class="fc" id="L44">        return price.get();</span>
+    }
+
+
+    public boolean equals(Object o){
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(o instanceof Book){</span>
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">            if(((Book) o).getTitle().equals(this.getTitle()) &amp;&amp; ((Book) o).getAuthor().equals(this.getAuthor()) &amp;&amp;</span>
+<span class="pc bpc" id="L51" title="2 of 4 branches missed.">            ((Book) o).getPrice().equals(this.getPrice()) &amp;&amp; ((Book) o).getPublishingHouse().equals(this.getPublishingHouse()) &amp;&amp;</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            ((Book) o).getYear().equals(this.getYear()))</span>
+<span class="fc" id="L53">                return true;</span>
+        }
+<span class="fc" id="L55">        return false;</span>
+    }
+
+    public String toString(){
+<span class="fc" id="L59">        String r = this.getTitle() +&quot;, &quot;+this.getAuthor()+&quot;, &quot;+this.getPublishingHouse()+&quot;, &quot;+this.getYear()+&quot;, &quot;+this.getPrice()+&quot;, q:&quot;+this.getQuantity();</span>
+<span class="fc" id="L60">        return r;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

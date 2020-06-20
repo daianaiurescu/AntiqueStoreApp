@@ -22,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.fis.student.controllers.viewBooksController;
 
+import org.fis.student.services.BookService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.*;
@@ -44,39 +45,55 @@ import java.util.logging.Logger;
 
 import static java.lang.String.valueOf;
 import static javafx.scene.control.cell.TextFieldTableCell.*;
+import static org.fis.student.services.BookService.readFromFile;
+import static org.fis.student.services.BookService.writeBooks;
 
 
 public class stockController {
 
     //configure the table
-    @FXML private TableView<Book> tableView;
+    @FXML
+    public TableView<Book> tableView;
 
-    @FXML private TableColumn<Book, String> titleColumn;
-    @FXML private TableColumn<Book, String> authorColumn;
-    @FXML private TableColumn<Book, String> publishingHouseColumn;
-    @FXML private TableColumn<Book, String> yearColumn;
-    @FXML private TableColumn<Book, String> quantityColumn;
-    @FXML private TableColumn<Book, String> priceColumn;
+    @FXML
+    public TableColumn<Book, String> titleColumn;
+    @FXML
+    public TableColumn<Book, String> authorColumn;
+    @FXML
+    public TableColumn<Book, String> publishingHouseColumn;
+    @FXML
+    public TableColumn<Book, String> yearColumn;
+    @FXML
+    public TableColumn<Book, String> quantityColumn;
+    @FXML
+    public TableColumn<Book, String> priceColumn;
 
     //The following variables will be used in order to create a new book
-    @FXML private TextField titleTextField;
-    @FXML private TextField authorTextField;
-    @FXML private TextField publishingHouseTextField;
-    @FXML private Spinner<Integer> yearSpinner;
-    @FXML private Spinner<Integer> quantitySpinner;
-    @FXML private Spinner<Double> priceSpinner;
+    @FXML
+    public TextField titleTextField;
+    @FXML
+    public TextField authorTextField;
+    @FXML
+    public TextField publishingHouseTextField;
+    @FXML
+    public Spinner<Integer> yearSpinner;
+    @FXML
+    public Spinner<Integer> quantitySpinner;
+    @FXML
+    public Spinner<Double> priceSpinner;
+
     @FXML private Button addBookButton;
+
     @FXML private Button goback;
 
+    public String fileName = "../AntiqueStore/src/main/resources/books.json";
 
-
-
-   private ObservableList<Book> bookList = FXCollections.observableArrayList();
+    public static ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         //configuring spinners
-        SpinnerValueFactory<Integer> yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1700, Year.now().getValue(), 1900);
+        SpinnerValueFactory<Integer> yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1700, Year.now().getValue(), 2000);
         this.yearSpinner.setValueFactory(yearValueFactory);
         yearSpinner.setEditable(true);
 
@@ -93,7 +110,7 @@ public class stockController {
 
 
         try {
-            tableView.setItems(viewBooksController.readFromFile());
+            tableView.setItems(readFromFile(fileName));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -114,7 +131,7 @@ public class stockController {
                         //System.out.println(actualizedBook.toString());
 
                         try {
-                            updateJSONFile(actualizedBook);
+                            updateJSONFile(actualizedBook, fileName);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (ParseException e) {
@@ -127,8 +144,8 @@ public class stockController {
 
 
 
-    public void updateJSONFile(Book actualizedBook) throws IOException, ParseException {
-        ObservableList<Book> books = viewBooksController.readFromFile();
+    public void updateJSONFile(Book actualizedBook, String fileName) throws IOException, ParseException {
+        ObservableList<Book> books = readFromFile(fileName);
         Book aux1 = null;
 
         for(Book b: books){
@@ -141,30 +158,12 @@ public class stockController {
         if(aux1 != null) {
             books.remove(aux1); //deleting the same book that has the old quantity
             books.add(actualizedBook); //adding the same book, with the updated quantity
-
-            FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
-
-
-            JSONArray booksJSON = new JSONArray();
-            for (Book aux : books) {
-                JSONObject bookDetails = new JSONObject();
-                bookDetails.put("title", aux.getTitle());
-                bookDetails.put("author", aux.getAuthor());
-                bookDetails.put("publishingHouse", aux.getPublishingHouse());
-                bookDetails.put("price", aux.getPrice());
-                bookDetails.put("year", aux.getYear());
-                bookDetails.put("quantity", aux.getQuantity());
-
-
-                booksJSON.add(bookDetails);
-            }
-
-            file.write(booksJSON.toJSONString());
-            file.flush();
-            this.initialize();
         }
-
+            writeBooks(fileName, books);
+            this.initialize();
     }
+
+
 
 
 
@@ -181,8 +180,6 @@ public class stockController {
     /* This method will create a new book and add it to the table*/
 
     public void newBookButtonPushed(){
-
-       // ObservableList<Book> books = FXCollections.observableArrayList();
         addBookButton.setOnAction(value-> {
             int yearValue = (int) yearSpinner.getValue();
             int quantityValue = (int) quantitySpinner.getValue();
@@ -192,7 +189,7 @@ public class stockController {
                     publishingHouseTextField.getText(), valueOf(yearValue), valueOf(priceValue), valueOf(quantityValue));
 
             try {
-                writeNewBook(newBook);
+                writeNewBook(newBook, fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -205,71 +202,30 @@ public class stockController {
         }
 
 
-    public void writeNewBook(Book newBook) throws IOException, ParseException {
-        ObservableList<Book> bookList = FXCollections.observableArrayList();
-        bookList = viewBooksController.readFromFile();
+    public void writeNewBook(Book newBook, String fileName) throws IOException, ParseException {
+        bookList = readFromFile(fileName);
         bookList.add(newBook);
-
-        FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
-
-
-        JSONArray books = new JSONArray();
-        for (Book aux: bookList){
-            JSONObject bookDetails = new JSONObject();
-            bookDetails.put("title", aux.getTitle());
-            bookDetails.put("author", aux.getAuthor());
-            bookDetails.put("publishingHouse", aux.getPublishingHouse());
-            bookDetails.put("price", aux.getPrice());
-            bookDetails.put("year", aux.getYear());
-            bookDetails.put("quantity", aux.getQuantity());
-
-            JSONObject obj = new JSONObject();
-            books.add(bookDetails);
-        }
-
-        file.write(books.toJSONString());
-        file.flush();
-
+        BookService.writeBooks(fileName, bookList);
     }
 
     public void handleDeleteBookButtonAction() throws IOException, ParseException {
-        ObservableList<Book> books = viewBooksController.readFromFile();
+        bookList = readFromFile(fileName);
         Book deletedBook = tableView.getSelectionModel().getSelectedItem();
 
         Book aux1 = null;
 
-        for(Book b: books){
+        for(Book b: bookList){
             if(b.equals(deletedBook)) {
                 aux1 = b;
                 //System.out.println(aux1.toString());
             }
         }
+            bookList.remove(aux1);
 
-        if(aux1 != null) {
-            books.remove(aux1);
-
-            FileWriter file = new FileWriter("../AntiqueStore/src/main/resources/books.json");
-
-
-            JSONArray booksJSON = new JSONArray();
-            for (Book aux : books) {
-                JSONObject bookDetails = new JSONObject();
-                bookDetails.put("title", aux.getTitle());
-                bookDetails.put("author", aux.getAuthor());
-                bookDetails.put("publishingHouse", aux.getPublishingHouse());
-                bookDetails.put("price", aux.getPrice());
-                bookDetails.put("year", aux.getYear());
-                bookDetails.put("quantity", aux.getQuantity());
-
-
-                booksJSON.add(bookDetails);
-            }
-
-            file.write(booksJSON.toJSONString());
-            file.flush();
-            this.initialize();
-        }
+        writeBooks(fileName, bookList);
+        this.initialize();
     }
+
 
 
 
