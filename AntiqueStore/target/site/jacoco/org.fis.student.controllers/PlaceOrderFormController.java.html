@@ -6,17 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.fis.student.*;
-import org.fis.student.services.OrderService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-<span class="nc" id="L19">public class PlaceOrderFormController {</span>
+<span class="fc" id="L16">public class PlaceOrderFormController {</span>
     @FXML
     public TextField firstName, lastName, address, phoneNumber, city;
 
@@ -26,84 +23,86 @@ import java.io.IOException;
 
     public Dialog d;
 
+<span class="fc" id="L26">    public String fileName=&quot;../AntiqueStore/src/main/resources/orders.json&quot;;</span>
+
     public void getCartFromController1(Cart cart){
-<span class="nc" id="L30">        c=new Cart(cart.getBooks());</span>
-<span class="nc" id="L31">        c.setTotal(cart.getTotal());</span>
-<span class="nc" id="L32">    }</span>
+<span class="fc" id="L29">        c=new Cart(cart.getBooks());</span>
+<span class="fc" id="L30">        c.setTotal(cart.getTotal());</span>
+<span class="fc" id="L31">    }</span>
 
 
-   /** public void writeNewOrder(Order newOrder) throws IOException, ParseException {
+    public void writeNewOrder(Order newOrder, String fileName) throws IOException, ParseException {
 
-        ObservableList&lt;Order&gt; OrderList = FXCollections.observableArrayList();
-        OrderList = manageOrderController.ReadOrder();
+<span class="fc" id="L36">        ObservableList&lt;Order&gt; OrderList = FXCollections.observableArrayList();</span>
+<span class="fc" id="L37">        OrderList = manageOrderController.ReadOrder(fileName);</span>
 
-        OrderList.add(newOrder);
+<span class="fc" id="L39">        OrderList.add(newOrder);</span>
 
-        FileWriter file = new FileWriter(&quot;../AntiqueStore/src/main/resources/orders.json&quot;);
-
-
-        JSONArray all_orders = new JSONArray();
+<span class="fc" id="L41">        FileWriter file = new FileWriter(fileName);</span>
 
 
-        for (Order aux: OrderList) {
-            JSONObject OrderDetails = new JSONObject();
-            OrderDetails.put(&quot;firstName&quot;, aux.getClient().getFirstName());
-            OrderDetails.put(&quot;lastName&quot;, aux.getClient().getLastName());
-            OrderDetails.put(&quot;phoneNumber&quot;, aux.getClient().getPhoneNumber());
-            OrderDetails.put(&quot;City&quot;, aux.getClient().getCity());
-            OrderDetails.put(&quot;Address&quot;, aux.getClient().getAddress());
-            OrderDetails.put(&quot;Total&quot;, aux.getCart().getTotal());
+<span class="fc" id="L44">        JSONArray all_orders = new JSONArray();</span>
 
-            int no_of_books = aux.getCart().getBooks().size();
 
-            JSONArray books = new JSONArray();
-            books.clear();
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (Order aux: OrderList) {</span>
+<span class="fc" id="L48">            JSONObject OrderDetails = new JSONObject();</span>
+<span class="fc" id="L49">            OrderDetails.put(&quot;firstName&quot;, aux.getClient().getFirstName());</span>
+<span class="fc" id="L50">            OrderDetails.put(&quot;lastName&quot;, aux.getClient().getLastName());</span>
+<span class="fc" id="L51">            OrderDetails.put(&quot;phoneNumber&quot;, aux.getClient().getPhoneNumber());</span>
+<span class="fc" id="L52">            OrderDetails.put(&quot;City&quot;, aux.getClient().getCity());</span>
+<span class="fc" id="L53">            OrderDetails.put(&quot;Address&quot;, aux.getClient().getAddress());</span>
+<span class="fc" id="L54">            OrderDetails.put(&quot;Total&quot;, aux.getCart().getTotal());</span>
 
-            for (int i = 0; i &lt; no_of_books; i++) {
-                JSONObject book_i = new JSONObject();
-                book_i.put(&quot;Title&quot;, aux.getCart().getBooks().get(i).getTitle());
-                book_i.put(&quot;Author&quot;, aux.getCart().getBooks().get(i).getAuthor());
-                book_i.put(&quot;PublishingHouse&quot;, aux.getCart().getBooks().get(i).getPublishingHouse());
-                book_i.put(&quot;Year&quot;, aux.getCart().getBooks().get(i).getYear());
-                book_i.put(&quot;Price&quot;, aux.getCart().getBooks().get(i).getPrice());
-                book_i.put(&quot;Quantity&quot;, aux.getCart().getBooks().get(i).getQuantity());
-                books.add(book_i);
+<span class="fc" id="L56">            int no_of_books = aux.getCart().getBooks().size();</span>
+
+<span class="fc" id="L58">            JSONArray books = new JSONArray();</span>
+<span class="fc" id="L59">            books.clear();</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            for (int i = 0; i &lt; no_of_books; i++) {</span>
+<span class="fc" id="L62">                JSONObject book_i = new JSONObject();</span>
+<span class="fc" id="L63">                book_i.put(&quot;Title&quot;, aux.getCart().getBooks().get(i).getTitle());</span>
+<span class="fc" id="L64">                book_i.put(&quot;Author&quot;, aux.getCart().getBooks().get(i).getAuthor());</span>
+<span class="fc" id="L65">                book_i.put(&quot;PublishingHouse&quot;, aux.getCart().getBooks().get(i).getPublishingHouse());</span>
+<span class="fc" id="L66">                book_i.put(&quot;Year&quot;, aux.getCart().getBooks().get(i).getYear());</span>
+<span class="fc" id="L67">                book_i.put(&quot;Price&quot;, aux.getCart().getBooks().get(i).getPrice());</span>
+<span class="fc" id="L68">                book_i.put(&quot;Quantity&quot;, aux.getCart().getBooks().get(i).getQuantity());</span>
+<span class="fc" id="L69">                books.add(book_i);</span>
             }
-            OrderDetails.put(&quot;Books&quot;, books);
-            all_orders.add(OrderDetails);
-        }
+<span class="fc" id="L71">            OrderDetails.put(&quot;Books&quot;, books);</span>
+<span class="fc" id="L72">            all_orders.add(OrderDetails);</span>
+<span class="fc" id="L73">        }</span>
 
-            file.write(all_orders.toJSONString());
-            file.flush();
+<span class="fc" id="L75">            file.write(all_orders.toJSONString());</span>
+<span class="fc" id="L76">            file.flush();</span>
 
 
-    }**/
+<span class="fc" id="L79">    }</span>
 
 
     @FXML
     public void PlaceOrder(){
-<span class="nc bnc" id="L85" title="All 4 branches missed.">        if(firstName.getText().isEmpty() || lastName.getText().isEmpty() ||</span>
-<span class="nc bnc" id="L86" title="All 4 branches missed.">                address.getText().isEmpty() || phoneNumber.getText().isEmpty() ||</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">                city.getText().isEmpty()) {</span>
-<span class="nc" id="L88">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Form Error! None of these fields should be empty.&quot;);</span>
-<span class="nc" id="L89">            d.show();</span>
-<span class="nc" id="L90">            return;</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">        if(firstName.getText().isEmpty() || lastName.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">                address.getText().isEmpty() || phoneNumber.getText().isEmpty() ||</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                city.getText().isEmpty()) {</span>
+<span class="nc" id="L87">            d = new Alert(Alert.AlertType.INFORMATION, &quot;Form Error! None of these fields should be empty.&quot;);</span>
+<span class="nc" id="L88">            d.show();</span>
+<span class="nc" id="L89">            return;</span>
         }
 
         else{
-<span class="nc" id="L94">            Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());</span>
-<span class="nc" id="L95">            o=new Order(c, cl);</span>
+<span class="nc" id="L93">            Client cl=new Client(firstName.getText(), lastName.getText(), address.getText(), phoneNumber.getText(), city.getText());</span>
+<span class="nc" id="L94">            o=new Order(c, cl);</span>
             try {
-<span class="nc" id="L97">                OrderService.writeNewOrder(o, &quot;../AntiqueStore/src/main/resources/orders.json&quot;);</span>
-<span class="nc" id="L98">            }catch(IOException e){</span>
-<span class="nc" id="L99">                e.printStackTrace();</span>
-<span class="nc" id="L100">            }catch(ParseException e1){</span>
-<span class="nc" id="L101">                e1.printStackTrace();</span>
-<span class="nc" id="L102">            }</span>
+<span class="nc" id="L96">                writeNewOrder(o, fileName);</span>
+<span class="nc" id="L97">            }catch(IOException e){</span>
+<span class="nc" id="L98">                e.printStackTrace();</span>
+<span class="nc" id="L99">            }catch(ParseException e1){</span>
+<span class="nc" id="L100">                e1.printStackTrace();</span>
+<span class="nc" id="L101">            }</span>
 
-<span class="nc" id="L104">            d= new Alert(Alert.AlertType.INFORMATION, &quot;Your order was submitted!&quot;);</span>
-<span class="nc" id="L105">            d.show();</span>
-<span class="nc" id="L106">            return ;</span>
+<span class="nc" id="L103">            d= new Alert(Alert.AlertType.INFORMATION, &quot;Your order was submitted!&quot;);</span>
+<span class="nc" id="L104">            d.show();</span>
+<span class="nc" id="L105">            return ;</span>
         }
     }
 }

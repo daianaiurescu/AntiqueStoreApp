@@ -28,7 +28,7 @@ import static org.fis.student.controllers.manageOrderController.ReadOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class manageOrderTests extends ApplicationTest {
+public class ManageOrderTest extends ApplicationTest {
 
     private  manageOrderController controller=new manageOrderController();
     private static ObservableList<Book> books=FXCollections.observableArrayList();
