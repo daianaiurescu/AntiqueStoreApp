@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="0" name="Classes.DonationTest" time="0" errors="0" skipped="0">
+<testsuite tests="9" failures="0" name="Classes.DonationTest" time="0.006" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_241\jre\bin"/>
@@ -73,5 +73,5 @@
   <testcase classname="Classes.DonationTest" name="testGetLastName" time="0"/>
   <testcase classname="Classes.DonationTest" name="testGetAuthor" time="0"/>
   <testcase classname="Classes.DonationTest" name="testGetFirstName" time="0"/>
-  <testcase classname="Classes.DonationTest" name="testEquals" time="0"/>
+  <testcase classname="Classes.DonationTest" name="testEquals" time="0.006"/>
 </testsuite>

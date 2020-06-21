@@ -27,7 +27,7 @@ public class DonationService {
         for(Object d : donationList){
             JSONObject o = (JSONObject)d;
             Donation don = new Donation(o.get("bookTitle").toString(), o.get("bookAuthor").toString(), o.get("bookPublishingHouse").toString(),
-                    o.get("bookYear").toString(),
+                    o.get("bookYearOfPublishing").toString(),
                     o.get("donorFirstName").toString(),
                     o.get("donorLastName").toString(),
                     o.get("donorEmail").toString(),
@@ -49,7 +49,7 @@ public class DonationService {
             DonationDetails.put("bookTitle", aux.getBookTitle());
             DonationDetails.put("bookAuthor", aux.getBookAuthor());
             DonationDetails.put("bookPublishingHouse", aux.getBookPublishingHouse());
-            DonationDetails.put("bookYear", aux.getBookYear());
+            DonationDetails.put("bookYearOfPublishing", aux.getBookYear());
             DonationDetails.put("donorFirstName", aux.getDonorFirstName());
             DonationDetails.put("donorLastName", aux.getDonorLastName());
             DonationDetails.put("donorEmail", aux.getDonorEmail());
